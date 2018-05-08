@@ -35,7 +35,7 @@ namespace checkers
             Player[] players = { p1, p2 };
             Player ans;
             turn = 1;
-
+            //test
             PerformMove(b, new AMove(1,2,1,4), p1);
             PerformMove(b, new AMove(2, 1, 2, 3), p1);
             b.BoardArray[4,5]=new Queen(p2.color);
