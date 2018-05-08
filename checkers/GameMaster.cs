@@ -80,7 +80,6 @@ namespace checkers
                     f.msg("player " + (Math.Abs(turn - 1) + 1) + " is the winner! ");
                     return players[Math.Abs(turn - 1)]; //return the player who hasent lost
                 }
-                //check
                 PerformMove(b, m, players[turn]);
                 turn = Math.Abs(turn - 1);
             }
