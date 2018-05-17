@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +35,7 @@ namespace checkers
             }
 
             //Allocate & Initialize the root
-            root = new TreeNode(tree_arr[0], true, null,null, null, null);
+            root = new TreeNode(tree_arr[0], true, null, null, null);
 
             build_expression_tree(0, root);
         }
@@ -51,7 +51,7 @@ namespace checkers
                 //Create right son if exist
                 if (has_right_son(i))
                 {
-                    runner.set_right_son(new TreeNode(tree_arr[(i + 1) * 2], true,null, null, null, runner));
+                    runner.set_right_son(new TreeNode(tree_arr[(i + 1) * 2], true, null, null, runner));
                     runner.set_is_leaf(false);
                     build_expression_tree((i + 1) * 2, runner.right);
                 }
@@ -59,7 +59,7 @@ namespace checkers
                 //Create right son if exist
                 if (has_left_son(i))
                 {
-                    runner.set_left_son(new TreeNode(tree_arr[i * 2 + 1], true,null, null, null, runner));
+                    runner.set_left_son(new TreeNode(tree_arr[i * 2 + 1], true, null, null, runner));
                     runner.set_is_leaf(false);
                     build_expression_tree(i * 2 + 1, runner.left);
                 }
