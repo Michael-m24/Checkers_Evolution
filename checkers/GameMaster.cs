@@ -244,7 +244,7 @@ namespace checkers
             {
                 tmp[i] = ans[i];
             }
-            Console.WriteLine("possible moves for player "+(turn+1)+": "+tmp.Length);
+            //Console.WriteLine("possible moves for player "+(turn+1)+": "+tmp.Length);
             return tmp;
         }
 

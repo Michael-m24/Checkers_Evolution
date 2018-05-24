@@ -22,7 +22,7 @@ namespace checkers
             //temporary hotfix.
             int a = rnd.Next(0, options.Length);
 
-            System.Threading.Thread.Sleep(100);
+            //System.Threading.Thread.Sleep(100);
 
             return options[a];
         }

@@ -17,3 +17,13 @@ C:\Users\Eti\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.csp
 C:\Users\Eti\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.csproj.CoreCompileInputs.cache
 C:\Users\Eti\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.exe
 C:\Users\Eti\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.pdb
+C:\Users\Mishapc\Documents\GitHub\Checkers_Evolution\checkers\bin\Debug\checkers.exe.config
+C:\Users\Mishapc\Documents\GitHub\Checkers_Evolution\checkers\bin\Debug\checkers.exe
+C:\Users\Mishapc\Documents\GitHub\Checkers_Evolution\checkers\bin\Debug\checkers.pdb
+C:\Users\Mishapc\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.csprojResolveAssemblyReference.cache
+C:\Users\Mishapc\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.Form1.resources
+C:\Users\Mishapc\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.Properties.Resources.resources
+C:\Users\Mishapc\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.csproj.GenerateResource.Cache
+C:\Users\Mishapc\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.csproj.CoreCompileInputs.cache
+C:\Users\Mishapc\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.exe
+C:\Users\Mishapc\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.pdb
