@@ -17,7 +17,7 @@ namespace checkers
         private Form1 f;
         Random rnd = new Random();
         public GameMaster(Form1 frm)
-        {          
+        {
             f = frm;
         }
 
@@ -36,22 +36,23 @@ namespace checkers
             Player ans;
             turn = 1;
 
-            PerformMove(b, new AMove(1,2,1,4), p1);
+            PerformMove(b, new AMove(1, 2, 1, 4), p1);
             PerformMove(b, new AMove(2, 1, 2, 3), p1);
-            b.BoardArray[4,5]=new Queen(p2.color);
+            b.BoardArray[4, 5] = new Queen(p2.color);
 
             AMove[] MA = GetAllMoves(b, players[turn]);
             for (int i = 0; i < MA.Length; i++)
             {
-                MA[0].printAMove(MA[i]);
+                MA[i].printAMove();
             }
             b.PrintBoard();
-            
+
         }
 
-        public Player PvP(Player p1,Player p2)
+        public Player PvP(Player p1, Player p2)
         {
-            b=new Board();
+            Console.WriteLine("game start!");
+            b = new Board();
             b.PrintBoard2(f);
             player1 = p1;
             player2 = p2;
@@ -59,37 +60,44 @@ namespace checkers
             player1.direction = 1;
             player2.color = 2;
             player2.direction = -1;
+            AMove[] logAMoves = new AMove[400];
+            int logInd = 0;
 
-            Player[] players={p1,p2};
+            Player[] players = { p1, p2 };
             Player ans;
-            turn  = rnd.Next(2);
-            while(true) //TODO: put in its own thread
+            turn = rnd.Next(2);
+            while (true) //TODO: put in its own thread
             {
                 b.PrintBoard2(f);
                 AMove[] MA = GetAllMoves(b, players[turn]);
-                AMove m=players[turn].ChooseMove(MA,b,f);
-                while (MA!=null && m!=null && !IsLegalMove(b, m, players[turn])) //will only shoot in case of human player making an illegal move
+                AMove m = players[turn].ChooseMove(MA, b, f);
+                while (MA != null && m != null && !IsLegalMove(b, m, players[turn])) //will only shoot in case of human player making an illegal move
                 {
-                    f.msg("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1]+" isn't legal.");
+                    f.msg("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1] + " isn't legal.");
                     m = players[turn].ChooseMove(GetAllMoves(b, players[turn]), b, f);
                 }
                 if (m == null) //the player currently playing has no legal move to make
                 {
-                    
+
                     //Console.WriteLine("player " + (Math.Abs(turn - 1)+1)+" is the winner! ");
                     f.msg("player " + (Math.Abs(turn - 1) + 1) + " is the winner! ");
+                    for (int i = 0; i < logInd; i++)
+                        logAMoves[i].printAMove();
                     return players[Math.Abs(turn - 1)]; //return the player who hasent lost
                 }
                 PerformMove(b, m, players[turn]);
+                logAMoves[logInd] = m;
+                logInd++;
                 turn = Math.Abs(turn - 1);
             }
+
         }
 
         public bool IsLegalMove(Board b, AMove a, Player p)
         {
             bool ans = true;
 
-            if (a.From[0]%2 == a.From[1]%2 || a.To[0]%2 == a.To[1]%2) //not from a black position or not to a black position
+            if (a.From[0] % 2 == a.From[1] % 2 || a.To[0] % 2 == a.To[1] % 2) //not from a black position or not to a black position
             {
                 return false;
             }
@@ -110,28 +118,28 @@ namespace checkers
             {
                 return false;
             }
-            
+
             if ((Math.Abs(a.From[0] - a.To[0])) != (Math.Abs(a.From[1] - a.To[1]))) //not diagonal move
             {
                 return false;
             }
 
-            if (b.BoardArray[a.From[0], a.From[1]].GetType() == typeof (Piece)) //its a regular soldier yo!
+            if (b.BoardArray[a.From[0], a.From[1]].GetType() == typeof(Piece)) //its a regular soldier yo!
             {
                 if (p.direction * (a.From[1] - a.To[1]) > -1) //not moving in the right direction for the player
                 {
                     return false;
                 }
                 if ((Math.Abs(a.From[0] - a.To[0]) == 2) && (Math.Abs(a.From[1] - a.To[1])) == 2)
-                    //piece eating step
+                //piece eating step
                 {
-                    Piece skipped = b.BoardArray[(a.From[0] + a.To[0])/2, (a.From[1] + a.To[1])/2];
+                    Piece skipped = b.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[1] + a.To[1]) / 2];
                     if (skipped == null || skipped.color == p.color)
                         //the position being skipped is empty, or occupied by the player currently playing
                         return false;
                 }
                 if ((Math.Abs(a.From[0] - a.To[0]) > 2) || (Math.Abs(a.From[1] - a.To[1])) > 2)
-                    // To furter than 2 from From
+                // To furter than 2 from From
                 {
                     return false;
                 }
@@ -141,9 +149,9 @@ namespace checkers
                 int dis = Math.Abs(a.To[0] - a.From[0]); //from (3,5) to (0,2) is 3 distance
                 int dirx = Math.Sign(a.To[0] - a.From[0]); //in example its negative direction on x axis
                 int diry = Math.Sign(a.To[1] - a.From[1]); //in example its negative direction on y axis
-                for (int i = 1; i < dis-1; i++) //start from 1 because the starting position was already checked
+                for (int i = 1; i < dis - 1; i++) //start from 1 because the starting position was already checked
                 {
-                    if (b.BoardArray[a.From[0] + dirx*i, a.From[1] + diry*i] != null) return false; //one of the tiles along the path tha isnt legal for eating was occupied
+                    if (b.BoardArray[a.From[0] + dirx * i, a.From[1] + diry * i] != null) return false; //one of the tiles along the path tha isnt legal for eating was occupied
                 }
                 if (dis > 1) //there was at least one tile skipped
                 {
@@ -160,19 +168,19 @@ namespace checkers
         public void PerformMove(Board b, AMove a, Player p)
         {
             //change the board according to a planned ove. assuming the move is legal.
-            if ( b.BoardArray[a.From[0], a.From[1]].GetType() == typeof(Piece) ) //if its a regular piece and not a queen
+            if (b.BoardArray[a.From[0], a.From[1]].GetType() == typeof(Piece)) //if its a regular piece and not a queen
             {
-                   
+
                 b.BoardArray[a.To[0], a.To[1]] = b.BoardArray[a.From[0], a.From[1]];
                 b.BoardArray[a.From[0], a.From[1]] = null;
                 if ((Math.Abs(a.From[0] - a.To[0]) == 2) && (Math.Abs(a.From[1] - a.To[1])) == 2) //regular piece eating step
                 {
-                    b.BoardArray[(a.From[0] + a.To[0])/2, (a.From[0] + a.To[0])/2]=null;
+                    b.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[0] + a.To[0]) / 2] = null;
                 }
                 if (a.To[1] == 0 || a.To[1] == 7) //reaching the furthest row
                 {
-                    b.BoardArray[a.To[0],a.To[1]]=new Queen(p.color); //transform the piece to a queen
-                } 
+                    b.BoardArray[a.To[0], a.To[1]] = new Queen(p.color); //transform the piece to a queen
+                }
             }
             else //if its a queen
             {
@@ -183,28 +191,28 @@ namespace checkers
                 b.BoardArray[x, y] = null; //the tile before the To tile is cleared. if there was a piece there it died.
 
             }
-            
-            
+
+
         }
 
         public AMove[] GetAllMoves(Board b, Player p)
         {
             //return an array with all the legal moves a player can make based on the board inputed.
             int ind = 0;
-            AMove[] ans=new AMove[200]; //array of possible legal moves
-            
-            for (int i=0;i<8;i++)
+            AMove[] ans = new AMove[200]; //array of possible legal moves
+
+            for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (b.BoardArray[i, j]!=null && b.BoardArray[i, j].color == p.color) //for every piece of the player currently playing
+                    if (b.BoardArray[i, j] != null && b.BoardArray[i, j].color == p.color) //for every piece of the player currently playing
                     {
-                        if (b.BoardArray[i, j].GetType() == typeof (Piece)) //its a regular piece
+                        if (b.BoardArray[i, j].GetType() == typeof(Piece)) //its a regular piece
                         {
                             AMove[] possible = new AMove[4];
                             possible[0] = new AMove(i, j, i + 1, j + p.direction); //regular moves
                             possible[1] = new AMove(i, j, i - 1, j + p.direction);
-                            possible[2] = new AMove(i, j, i + 2, j + 2*p.direction); //eating
-                            possible[3] = new AMove(i, j, i - 2, j + 2*p.direction);
+                            possible[2] = new AMove(i, j, i + 2, j + 2 * p.direction); //eating
+                            possible[3] = new AMove(i, j, i - 2, j + 2 * p.direction);
 
                             for (int k = 0; k < 4; k++) //add the legal moves to the ans array
                             {
@@ -217,9 +225,9 @@ namespace checkers
                         }
                         else //its a queen
                         {
-                            int ind2=0;
+                            int ind2 = 0;
                             AMove[] possible = new AMove[32];
-                            for(int r=1;r<8;r++) //consider all the possible moves availabe for a queen in (i,j) //TODO: can be  optimised
+                            for (int r = 1; r < 8; r++) //consider all the possible moves availabe for a queen in (i,j) //TODO: can be  optimised
                             {
                                 possible[ind2] = new AMove(i, j, i + r, j + r); ind2++;
                                 possible[ind2] = new AMove(i, j, i + r, j - r); ind2++;
@@ -239,7 +247,7 @@ namespace checkers
                     }
                 }
             //copy the legal moves array to a tmp array so there are non null slots
-            AMove[] tmp=new AMove[ind];
+            AMove[] tmp = new AMove[ind];
             for (int i = 0; i < ind; i++)
             {
                 tmp[i] = ans[i];
@@ -252,4 +260,4 @@ namespace checkers
     }
 }
 
- 
+
