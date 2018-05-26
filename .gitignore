@@ -1,2 +1,4 @@
 
 .vs/checkers/DesignTimeBuild/.dtbcache
+*.ide-shm
+*.ide-wal
