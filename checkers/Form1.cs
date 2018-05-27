@@ -26,8 +26,8 @@ namespace checkers
             //Board Board1=new Board();
             //Board1.PrintBoard();
             GameMaster GM = new GameMaster(this);
-            GM.PvP(new Player(), new Player());
-            //GM.tmpp(new Player(), new Player());
+            //GM.PvP(new Player(), new Player());
+            GM.tmpp(new Player(), new Player());
             
 
 
