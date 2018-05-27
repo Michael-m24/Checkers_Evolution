@@ -36,8 +36,8 @@ namespace checkers
             Player ans;
             turn = 1;
 
-            PerformMove(b, new AMove(1, 2, 1, 4), p1);
-            PerformMove(b, new AMove(2, 1, 2, 3), p1);
+            PerformMove2(b, new AMove(1, 2, 1, 4), p1.color);
+            PerformMove2(b, new AMove(2, 1, 2, 3), p1.color);
             b.BoardArray[4, 5] = new Queen(p2.color);
 
             AMove[] MA = GetAllMoves(b, players[turn]);
@@ -60,8 +60,10 @@ namespace checkers
             player1.direction = 1;
             player2.color = 2;
             player2.direction = -1;
-            AMove[] logAMoves = new AMove[400];
-            int logInd = 0;
+
+            AMove[] logAMoves = new AMove[200]; //just for testing
+            Board[] logBoards = new Board[200]; //
+            int logInd = 0;//
 
             Player[] players = { p1, p2 };
             Player ans;
@@ -81,13 +83,20 @@ namespace checkers
 
                     //Console.WriteLine("player " + (Math.Abs(turn - 1)+1)+" is the winner! ");
                     f.msg("player " + (Math.Abs(turn - 1) + 1) + " is the winner! ");
-                    for (int i = 0; i < logInd; i++)
+                    for (int i = 0; i < logInd; i++) //just for testing
+                    {
+                        Console.Write(i+") ");
                         logAMoves[i].printAMove();
+                        Console.WriteLine();
+                        logBoards[i].PrintBoard();
+                        Console.WriteLine();
+                    }
                     return players[Math.Abs(turn - 1)]; //return the player who hasent lost
                 }
-                PerformMove(b, m, players[turn]);
-                logAMoves[logInd] = m;
-                logInd++;
+                PerformMove2(b, m, players[turn].color); 
+                logAMoves[logInd] = m; // just for testing
+                logBoards[logInd] = b; //
+                logInd++; //
                 turn = Math.Abs(turn - 1);
             }
 
@@ -180,6 +189,36 @@ namespace checkers
                 if (a.To[1] == 0 || a.To[1] == 7) //reaching the furthest row
                 {
                     b.BoardArray[a.To[0], a.To[1]] = new Queen(p.color); //transform the piece to a queen
+                }
+            }
+            else //if its a queen
+            {
+                b.BoardArray[a.To[0], a.To[1]] = b.BoardArray[a.From[0], a.From[1]];
+                b.BoardArray[a.From[0], a.From[1]] = null;
+                int x = a.From[0] + Math.Sign(a.To[0] - a.From[0]);
+                int y = a.From[1] + Math.Sign(a.To[1] - a.From[1]);
+                b.BoardArray[x, y] = null; //the tile before the To tile is cleared. if there was a piece there it died.
+
+            }
+
+
+        }
+
+        public void PerformMove2(Board b, AMove a, int color)
+        {
+            //change the board according to a planned ove. assuming the move is legal.
+            if (b.BoardArray[a.From[0], a.From[1]].GetType() == typeof(Piece)) //if its a regular piece and not a queen
+            {
+
+                b.BoardArray[a.To[0], a.To[1]] = b.BoardArray[a.From[0], a.From[1]];
+                b.BoardArray[a.From[0], a.From[1]] = null;
+                if ((Math.Abs(a.From[0] - a.To[0]) == 2) && (Math.Abs(a.From[1] - a.To[1])) == 2) //regular piece eating step
+                {
+                    b.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[0] + a.To[0]) / 2] = null;
+                }
+                if (a.To[1] == 0 || a.To[1] == 7) //reaching the furthest row
+                {
+                    b.BoardArray[a.To[0], a.To[1]] = new Queen(color); //transform the piece to a queen
                 }
             }
             else //if its a queen

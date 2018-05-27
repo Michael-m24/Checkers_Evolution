@@ -41,7 +41,7 @@ namespace checkers
                     {
                         if (BoardArray[j, i] is Queen)
                         {
-                            if ((BoardArray[j, i].color) == 1) Console.Write("! "); //player 1 queen
+                            if ((BoardArray[j, i].color) == 1) Console.Write("# "); //player 1 queen
                             else Console.Write("? "); //player 2 queen
 
                         }
@@ -54,7 +54,7 @@ namespace checkers
         }
 
         public void PrintBoard2(Form1 f)
-        { //TODO: print tabe to form dataGridView1
+        { 
             var form = Form.ActiveForm as Form1;
             string ans = "";
             for (int i = 0; i < 8; i++)

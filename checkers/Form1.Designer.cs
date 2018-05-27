@@ -39,6 +39,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -137,11 +138,21 @@
             this.textBox3.Size = new System.Drawing.Size(249, 22);
             this.textBox3.TabIndex = 11;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(252, 195);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(115, 34);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "# player 1 queen\r\n? player 2 queen";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(395, 416);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -173,6 +184,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label5;
     }
 }
 
