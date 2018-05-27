@@ -29,6 +29,18 @@ namespace checkers
                 
         }
 
+        //copy ctor
+        public Board(Board board)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    this.BoardArray[i, j] = board.BoardArray[i, j];
+                }
+            }
+        }
+
         public void PrintBoard()
         {
             for (int i = 0; i < 8; i++)

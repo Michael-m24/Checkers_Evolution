@@ -10,6 +10,7 @@ namespace checkers
 {
     internal class GameMaster
     {
+        //
         private Board b;
         private Player player1;
         private Player player2;
@@ -19,6 +20,10 @@ namespace checkers
         public GameMaster(Form1 frm)
         {
             f = frm;
+        }
+        public GameMaster()
+        {
+            //defult constructor
         }
 
         public void tmpp(Player p1, Player p2)
@@ -36,17 +41,8 @@ namespace checkers
             Player ans;
             turn = 1;
 
-            PerformMove2(b, new AMove(1, 2, 1, 4), p1.color);
-            PerformMove2(b, new AMove(2, 1, 2, 3), p1.color);
-            b.BoardArray[4, 5] = new Queen(p2.color);
-
-            AMove[] MA = GetAllMoves(b, players[turn]);
-            for (int i = 0; i < MA.Length; i++)
-            {
-                MA[i].printAMove();
-            }
-            b.PrintBoard();
-
+            p1.Minimax(GetAllMoves(b, p1), b, 3, players);
+            
         }
 
         public Player PvP(Player p1, Player p2)
@@ -72,11 +68,11 @@ namespace checkers
             {
                 b.PrintBoard2(f);
                 AMove[] MA = GetAllMoves(b, players[turn]);
-                AMove m = players[turn].ChooseMove(MA, b, f);
+                AMove m = players[turn].ChooseMove(MA, b, f, players);
                 while (MA != null && m != null && !IsLegalMove(b, m, players[turn])) //will only shoot in case of human player making an illegal move
                 {
                     f.msg("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1] + " isn't legal.");
-                    m = players[turn].ChooseMove(GetAllMoves(b, players[turn]), b, f);
+                    m = players[turn].ChooseMove(GetAllMoves(b, players[turn]), b, f , players);
                 }
                 if (m == null) //the player currently playing has no legal move to make
                 {
@@ -174,60 +170,60 @@ namespace checkers
             return ans;
         }
 
-        public void PerformMove(Board b, AMove a, Player p)
+        public void PerformMove(Board b1, AMove a, Player p)
         {
             //change the board according to a planned ove. assuming the move is legal.
-            if (b.BoardArray[a.From[0], a.From[1]].GetType() == typeof(Piece)) //if its a regular piece and not a queen
+            if (b1.BoardArray[a.From[0], a.From[1]].GetType() == typeof(Piece)) //if its a regular piece and not a queen
             {
 
-                b.BoardArray[a.To[0], a.To[1]] = b.BoardArray[a.From[0], a.From[1]];
-                b.BoardArray[a.From[0], a.From[1]] = null;
+                b1.BoardArray[a.To[0], a.To[1]] = b1.BoardArray[a.From[0], a.From[1]];
+                b1.BoardArray[a.From[0], a.From[1]] = null;
                 if ((Math.Abs(a.From[0] - a.To[0]) == 2) && (Math.Abs(a.From[1] - a.To[1])) == 2) //regular piece eating step
                 {
-                    b.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[0] + a.To[0]) / 2] = null;
+                    b1.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[0] + a.To[0]) / 2] = null;
                 }
                 if (a.To[1] == 0 || a.To[1] == 7) //reaching the furthest row
                 {
-                    b.BoardArray[a.To[0], a.To[1]] = new Queen(p.color); //transform the piece to a queen
+                    b1.BoardArray[a.To[0], a.To[1]] = new Queen(p.color); //transform the piece to a queen
                 }
             }
             else //if its a queen
             {
-                b.BoardArray[a.To[0], a.To[1]] = b.BoardArray[a.From[0], a.From[1]];
-                b.BoardArray[a.From[0], a.From[1]] = null;
+                b1.BoardArray[a.To[0], a.To[1]] = b1.BoardArray[a.From[0], a.From[1]];
+                b1.BoardArray[a.From[0], a.From[1]] = null;
                 int x = a.From[0] + Math.Sign(a.To[0] - a.From[0]);
                 int y = a.From[1] + Math.Sign(a.To[1] - a.From[1]);
-                b.BoardArray[x, y] = null; //the tile before the To tile is cleared. if there was a piece there it died.
+                b1.BoardArray[x, y] = null; //the tile before the To tile is cleared. if there was a piece there it died.
 
             }
 
 
         }
 
-        public void PerformMove2(Board b, AMove a, int color)
+        public void PerformMove2(Board b2, AMove a, int color)
         {
             //change the board according to a planned ove. assuming the move is legal.
-            if (b.BoardArray[a.From[0], a.From[1]].GetType() == typeof(Piece)) //if its a regular piece and not a queen
+            if (b2.BoardArray[a.From[0], a.From[1]].GetType() == typeof(Piece)) //if its a regular piece and not a queen
             {
 
-                b.BoardArray[a.To[0], a.To[1]] = b.BoardArray[a.From[0], a.From[1]];
-                b.BoardArray[a.From[0], a.From[1]] = null;
+                b2.BoardArray[a.To[0], a.To[1]] = b2.BoardArray[a.From[0], a.From[1]];
+                b2.BoardArray[a.From[0], a.From[1]] = null;
                 if ((Math.Abs(a.From[0] - a.To[0]) == 2) && (Math.Abs(a.From[1] - a.To[1])) == 2) //regular piece eating step
                 {
-                    b.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[0] + a.To[0]) / 2] = null;
+                    b2.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[0] + a.To[0]) / 2] = null;
                 }
                 if (a.To[1] == 0 || a.To[1] == 7) //reaching the furthest row
                 {
-                    b.BoardArray[a.To[0], a.To[1]] = new Queen(color); //transform the piece to a queen
+                    b2.BoardArray[a.To[0], a.To[1]] = new Queen(color); //transform the piece to a queen
                 }
             }
             else //if its a queen
             {
-                b.BoardArray[a.To[0], a.To[1]] = b.BoardArray[a.From[0], a.From[1]];
-                b.BoardArray[a.From[0], a.From[1]] = null;
+                b2.BoardArray[a.To[0], a.To[1]] = b2.BoardArray[a.From[0], a.From[1]];
+                b2.BoardArray[a.From[0], a.From[1]] = null;
                 int x = a.From[0] + Math.Sign(a.To[0] - a.From[0]);
                 int y = a.From[1] + Math.Sign(a.To[1] - a.From[1]);
-                b.BoardArray[x, y] = null; //the tile before the To tile is cleared. if there was a piece there it died.
+                b2.BoardArray[x, y] = null; //the tile before the To tile is cleared. if there was a piece there it died.
 
             }
 

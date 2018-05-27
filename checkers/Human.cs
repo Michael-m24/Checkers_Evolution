@@ -9,7 +9,7 @@ namespace checkers
     class Human : Player
     {
         public AMove stored;
-        public override  AMove ChooseMove(AMove[] options, Board b, Form1 f)
+        public override  AMove ChooseMove(AMove[] options, Board b, Form1 f, Player[] players)
         {
             AMove ans;
             while (stored == null) //TODO: this is all wrong. find another way to wait for user input

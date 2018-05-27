@@ -36,3 +36,13 @@ C:\Users\pc\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.cspr
 C:\Users\pc\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.Form1.resources
 C:\Users\pc\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.Properties.Resources.resources
 C:\Users\pc\Documents\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.csproj.GenerateResource.Cache
+C:\Users\adaro\OneDrive\מסמכים\GitHub\Checkers_Evolution\checkers\bin\Debug\checkers.exe.config
+C:\Users\adaro\OneDrive\מסמכים\GitHub\Checkers_Evolution\checkers\bin\Debug\checkers.exe
+C:\Users\adaro\OneDrive\מסמכים\GitHub\Checkers_Evolution\checkers\bin\Debug\checkers.pdb
+C:\Users\adaro\OneDrive\מסמכים\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.csprojAssemblyReference.cache
+C:\Users\adaro\OneDrive\מסמכים\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.Form1.resources
+C:\Users\adaro\OneDrive\מסמכים\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.Properties.Resources.resources
+C:\Users\adaro\OneDrive\מסמכים\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.csproj.GenerateResource.cache
+C:\Users\adaro\OneDrive\מסמכים\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.csproj.CoreCompileInputs.cache
+C:\Users\adaro\OneDrive\מסמכים\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.exe
+C:\Users\adaro\OneDrive\מסמכים\GitHub\Checkers_Evolution\checkers\obj\Debug\checkers.pdb
