@@ -10,6 +10,7 @@ namespace checkers
 {
     internal class GameMaster
     {
+        //
         private Board b;
         private Player player1;
         private Player player2;
