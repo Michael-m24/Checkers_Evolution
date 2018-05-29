@@ -2,25 +2,69 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace checkers
 {
     class Human : Player
     {
+        Form1 form;
         public AMove stored;
         public override  AMove ChooseMove(AMove[] options, Board b, Form1 f, Player[] players)
         {
+            this.form = f;
             AMove ans;
-            while (stored == null) //TODO: this is all wrong. find another way to wait for user input
+            int f1=0, f2=0, t1=0, t2=0;
+            string[] from, to;
+
+            
+            form.printMessageGui("Please enter your next move");
+            while (form.getMoveIsClicked() == false)
             {
-                f.msg("Please enter a move");
-                System.Threading.Thread.Sleep(1000);
+             
             }
-            ans = stored;
-            stored = null;
+            
+            if(form.getMoveIsClicked()==true){
+                form.setMoveIsClicked(false);
+                 from = form.getTextBox1().Split(' ');
+                 f1 = int.Parse(from[0]);
+                 f2= int.Parse(from[1]);
+                 to = form.getTextBox2().Split(' ');
+                 t1= int.Parse(to[0]);
+                 t2 = int.Parse(to[1]);
+                form.clearTextBox();
+                while (f1<0||f1>7&& f2 < 0 || f2 > 7 && t1 < 0 || t1 > 7 && t2 < 0 || t2 > 7)
+                {
+                    form.printMessageGui("Please enter a valid move!");
+                    if (form.getMoveIsClicked() == true)
+                    {
+                        form.printMessageGui(" ");
+                        form.setMoveIsClicked(false);
+                         from = form.getTextBox1().Split(' ');
+                         f1 = int.Parse(from[0]);
+                         f2 = int.Parse(from[1]);
+                         to = form.getTextBox2().Split(' ');
+                         t1 = int.Parse(to[0]);
+                         t2 = int.Parse(to[1]);
+                        form.clearTextBox();
+                    }
+
+                }
+               
+                //System.Threading.Thread.Sleep(1000);
+            }
+            ans = new AMove(f1,f2,t1,t2);
+            //ans = stored;
+            //stored = null;
             return ans;
 
         }
+
+
+       
+
+
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -45,6 +46,31 @@ namespace checkers
             
         }
 
+        /*public void HvP(Human h,Player p)
+        {   
+
+            turn= rnd.Next(2);
+            while (true)
+            {
+                Console.Write("Please enter your move:");
+                string line = Console.ReadLine();
+                int a = int.Parse(line);
+                line = Console.ReadLine();
+                int b = int.Parse(line);
+
+                AMove[] MA = GetAllMoves(b, players[turn]);
+                AMove m = players[turn].ChooseMove(MA, b, f, players);
+                while (MA != null && m != null && !IsLegalMove(b, m, players[turn])) //will only shoot in case of human player making an illegal move
+                {
+                    f.msg("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1] + " isn't legal.");
+                    m = players[turn].ChooseMove(GetAllMoves(b, players[turn]), b, f, players);
+                }
+
+                turn = Math.Abs(turn - 1);
+            }
+        }*/
+
+
         public Player PvP(Player p1, Player p2)
         {
             Console.WriteLine("game start!");
@@ -69,14 +95,15 @@ namespace checkers
                 AMove m = players[turn].ChooseMove(MA, b, f, players);
                 while (MA != null && m != null && !IsLegalMove(b, m, players[turn])) //will only shoot in case of human player making an illegal move
                 {
-                    f.msg("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1] + " isn't legal.");
+                    f.printMessageGui("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1] + " isn't legal.");
+                    Thread.Sleep(2000);
                     m = players[turn].ChooseMove(GetAllMoves(b, players[turn]), b, f , players);
                 }
                 if (m == null) //the player currently playing has no legal move to make
                 {
 
                     //Console.WriteLine("player " + (Math.Abs(turn - 1)+1)+" is the winner! ");
-                    f.msg("player " + (Math.Abs(turn - 1) + 1) + " is the winner! ");
+                    f.printMessageGui("player " + (Math.Abs(turn - 1) + 1) + " is the winner! ");
                     for (int i = 0; i < logInd; i++)
                         logAMoves[i].printAMove();
                     return players[Math.Abs(turn - 1)]; //return the player who hasent lost

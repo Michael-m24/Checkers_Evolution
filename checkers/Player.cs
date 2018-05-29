@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -24,7 +25,7 @@ namespace checkers
             int a = rnd.Next(0, options.Length);
 
             //System.Threading.Thread.Sleep(100);
-
+            Thread.Sleep(500);
             return options[a];
         }
 
