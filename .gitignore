@@ -2,3 +2,9 @@
 .vs/checkers/DesignTimeBuild/.dtbcache
 *.ide-shm
 *.ide-wal
+
+checkers\.v12\.suo
+
+checkers/obj/Debug/DesignTimeResolveAssemblyReferences\.cache
+
+checkers/obj/Debug/DesignTimeResolveAssemblyReferencesInput\.cache
