@@ -38,8 +38,8 @@ namespace checkers
             int bestMove = 0;
             for (int i = 0; i < boards.Length; i++)
             {
-                Console.WriteLine("i is " + i);
-                options[i].printAMove();
+                //Console.WriteLine("i is " + i);
+                //options[i].printAMove();
                 boards[i] = new Board(b);
                 g.PerformMove2(boards[i], options[i], color);
                 if (players[0] == this)
@@ -48,9 +48,9 @@ namespace checkers
                 if (score[i] > score[bestMove])
                     bestMove = i;
             }
-            Console.WriteLine("score[bestMove] is " + score[bestMove]);
-            Console.Write("options[bestMove] is ");
-            options[bestMove].printAMove();
+            //Console.WriteLine("score[bestMove] is " + score[bestMove]);
+            //Console.Write("options[bestMove] is ");
+            //options[bestMove].printAMove();
 
             return options[bestMove];
             
@@ -75,8 +75,8 @@ namespace checkers
                 //stoping point for the recursia 
                 //call to the heuristic evaluation function to get the value of the board
                 // BoardValue = heuristic_evaluation_function(b);
-                BoardValue = rnd.Next(-20, 20);
-                Console.WriteLine("depth is "+depth+"val is "+BoardValue);
+                BoardValue = rnd.Next(-20, 20); // TODO: call eti function!!!
+                //Console.WriteLine("depth is "+depth+"val is "+BoardValue);
                 return BoardValue;
             }
             //if its the current player 
