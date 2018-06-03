@@ -139,10 +139,10 @@ namespace checkers
             GameMaster GM = (GameMaster)e.Argument;
             GM.PvP(new Player(), new Player());
 
-            if (backgroundWorker1.WorkerSupportsCancellation == true)
+            if (backgroundWorker2.WorkerSupportsCancellation == true)
             {
                 // Cancel the asynchronous operation.
-                backgroundWorker1.CancelAsync();
+                backgroundWorker2.CancelAsync();
             }
 
         }

@@ -11,10 +11,21 @@ namespace checkers
 {
     class Player
     {
-        
+        public Node tree;
         public int color;
         public int direction; //1 for player 1 who moves 0 to 7, -1 for player 2 who moves 7 to 0.
         public int BoardValue;
+
+
+
+        public Player()
+        {
+            this.tree = ;
+
+
+
+        }
+
 
         Random rnd = new Random();
         public virtual AMove ChooseMove(AMove[] options, Board b,Form1 f, Player[] players)

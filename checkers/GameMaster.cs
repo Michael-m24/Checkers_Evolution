@@ -198,6 +198,7 @@ namespace checkers
                 b1.BoardArray[a.From[0], a.From[1]] = null;
                 if ((Math.Abs(a.From[0] - a.To[0]) == 2) && (Math.Abs(a.From[1] - a.To[1])) == 2) //regular piece eating step
                 {
+                    f.printMessageGui("this happens");
                     b1.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[0] + a.To[0]) / 2] = null;
                 }
                 if (a.To[1] == 0 || a.To[1] == 7) //reaching the furthest row

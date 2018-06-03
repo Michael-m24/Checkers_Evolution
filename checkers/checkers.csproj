@@ -47,7 +47,10 @@
   <ItemGroup>
     <Compile Include="AMove.cs" />
     <Compile Include="Board.cs" />
-    <Compile Include="ExpressionTree.cs" />
+    <Compile Include="createTree.cs" />
+    <Compile Include="cond_node.cs" />
+    <Compile Include="Const.cs" />
+    <Compile Include="Eval_func.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,12 +59,16 @@
     </Compile>
     <Compile Include="GameMaster.cs" />
     <Compile Include="Human.cs" />
+    <Compile Include="If.cs" />
+    <Compile Include="Intern.cs" />
+    <Compile Include="Leaf.cs" />
+    <Compile Include="Math_op.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Piece.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queen.cs" />
-    <Compile Include="TreeNode.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
