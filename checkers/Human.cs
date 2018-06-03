@@ -14,6 +14,7 @@ namespace checkers
         public override  AMove ChooseMove(AMove[] options, Board b, Form1 f, Player[] players)
         {
             this.form = f;
+            b.PrintBoard2(f); //
             AMove ans;
             int f1=0, f2=0, t1=0, t2=0;
             string[] from, to;

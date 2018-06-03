@@ -32,6 +32,7 @@ namespace checkers
         {
             //Board Board1=new Board();
             //Board1.PrintBoard();
+            TournamentMaster TM=new TournamentMaster(100,10,this);
             GameMaster GM = new GameMaster(this);
             //GM.PvP(new Player(), new Player());
             //GM.tmpp(new Player(), new Player());
@@ -86,9 +87,6 @@ namespace checkers
             }
         }
 
-
-
-
         private void button2_Click(object sender, EventArgs e)
         {
             //me.stored = new AMove(textBox1.Text[0], textBox1.Text[1], textBox2.Text[0], textBox2.Text[1]);
@@ -139,10 +137,10 @@ namespace checkers
             GameMaster GM = (GameMaster)e.Argument;
             GM.PvP(new Player(), new Player());
 
-            if (backgroundWorker1.WorkerSupportsCancellation == true)
+            if (backgroundWorker2.WorkerSupportsCancellation == true)
             {
                 // Cancel the asynchronous operation.
-                backgroundWorker1.CancelAsync();
+                backgroundWorker2.CancelAsync();
             }
 
         }
@@ -178,8 +176,6 @@ namespace checkers
 
         }
 
-
-
         public void setMoveIsClicked(bool isClicked) {this.moveIsClicked = isClicked; }
         public bool getMoveIsClicked() { return this.moveIsClicked; }
         public string getTextBox1(){ return textBox1.Text; }
@@ -195,12 +191,6 @@ namespace checkers
 
         }
 
-        //TODO: human player mechanic. 4 hr.
-        //TODO: testing game mechanics. 8 hr.
-        //TODO: turnament mechanic. 4hr.
-        //TODO: assesment functions. 1 hr.
-        //TODO: tree building. 4 hr.
-        //TODO: genetic cross & genetic mutation. 12 hr.
 
     }
 }

@@ -85,43 +85,55 @@ namespace checkers
 
             AMove[] logAMoves = new AMove[200]; //just for testing
             Board[] logBoards = new Board[200]; //
-            int logInd = 0;//
+            int logInd = 0; //
 
-            Player[] players = { p1, p2 };
+            Player[] players = {p1, p2};
             Player ans;
             turn = rnd.Next(2);
-            while (true) //TODO: put in its own thread
+            while (logInd<200)
             {
-                b.PrintBoard2(f);
+                //b.PrintBoard2(f); //printed in human instead
                 AMove[] MA = GetAllMoves(b, players[turn]);
                 AMove m = players[turn].ChooseMove(MA, b, f, players);
-                while (MA != null && m != null && !IsLegalMove(b, m, players[turn])) //will only shoot in case of human player making an illegal move
+                while (MA != null && m != null && !IsLegalMove(b, m, players[turn]))
+                    //will only shoot in case of human player making an illegal move
                 {
-                    f.printMessageGui("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1] + " isn't legal.");
-                    Thread.Sleep(2000);
-                    m = players[turn].ChooseMove(GetAllMoves(b, players[turn]), b, f , players);
+                    f.printMessageGui("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1] +
+                                      " isn't legal.");
+                    Thread.Sleep(2000); //give the human player time to read the messege
+                    m = players[turn].ChooseMove(GetAllMoves(b, players[turn]), b, f, players);
                 }
                 if (m == null) //the player currently playing has no legal move to make
                 {
 
                     //Console.WriteLine("player " + (Math.Abs(turn - 1)+1)+" is the winner! ");
                     f.printMessageGui("player " + (Math.Abs(turn - 1) + 1) + " is the winner! ");
+                    /*
                     for (int i = 0; i < logInd; i++)
+                    {
                         logAMoves[i].printAMove();
                         Console.WriteLine();
                         logBoards[i].PrintBoard();
                         Console.WriteLine();
                     }
+                     * */
+                    b.PrintBoard2(f);
+                    //Console.WriteLine("Total moves: " + logInd);
                     return players[Math.Abs(turn - 1)]; //return the player who hasent lost
                 }
-                PerformMove2(b, m, players[turn].color); 
+                PerformMove(b, m, players[turn]);
+                /*
                 logAMoves[logInd] = m; // just for testing
-                logBoards[logInd] = b; //
+                logBoards[logInd] = new Board(b); //
+                 * */
                 logInd++; //
                 turn = Math.Abs(turn - 1);
             }
-
+            b.PrintBoard2(f);
+            //Console.WriteLine("Total moves: " + logInd);
+            return null; //in case of a game beyond 200 moves, its a tie.
         }
+
 
         public bool IsLegalMove(Board b, AMove a, Player p)
         {
@@ -197,30 +209,7 @@ namespace checkers
 
         public void PerformMove(Board b1, AMove a, Player p)
         {
-            //change the board according to a planned ove. assuming the move is legal.
-            if (b1.BoardArray[a.From[0], a.From[1]].GetType() == typeof(Piece)) //if its a regular piece and not a queen
-            {
-
-                b1.BoardArray[a.To[0], a.To[1]] = b1.BoardArray[a.From[0], a.From[1]];
-                b1.BoardArray[a.From[0], a.From[1]] = null;
-                if ((Math.Abs(a.From[0] - a.To[0]) == 2) && (Math.Abs(a.From[1] - a.To[1])) == 2) //regular piece eating step
-                {
-                    b1.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[0] + a.To[0]) / 2] = null;
-                }
-                if (a.To[1] == 0 || a.To[1] == 7) //reaching the furthest row
-                {
-                    b1.BoardArray[a.To[0], a.To[1]] = new Queen(p.color); //transform the piece to a queen
-                }
-            }
-            else //if its a queen
-            {
-                b1.BoardArray[a.To[0], a.To[1]] = b1.BoardArray[a.From[0], a.From[1]];
-                b1.BoardArray[a.From[0], a.From[1]] = null;
-                int x = a.From[0] + Math.Sign(a.To[0] - a.From[0]);
-                int y = a.From[1] + Math.Sign(a.To[1] - a.From[1]);
-                b1.BoardArray[x, y] = null; //the tile before the To tile is cleared. if there was a piece there it died.
-
-            }
+            PerformMove2(b1, a, p.color);
 
 
         }
@@ -235,7 +224,7 @@ namespace checkers
                 b2.BoardArray[a.From[0], a.From[1]] = null;
                 if ((Math.Abs(a.From[0] - a.To[0]) == 2) && (Math.Abs(a.From[1] - a.To[1])) == 2) //regular piece eating step
                 {
-                    b2.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[0] + a.To[0]) / 2] = null;
+                    b2.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[1] + a.To[1]) / 2] = null;
                 }
                 if (a.To[1] == 0 || a.To[1] == 7) //reaching the furthest row
                 {
@@ -246,8 +235,8 @@ namespace checkers
             {
                 b2.BoardArray[a.To[0], a.To[1]] = b2.BoardArray[a.From[0], a.From[1]];
                 b2.BoardArray[a.From[0], a.From[1]] = null;
-                int x = a.From[0] + Math.Sign(a.To[0] - a.From[0]);
-                int y = a.From[1] + Math.Sign(a.To[1] - a.From[1]);
+                int x = a.From[0] + Math.Sign(a.To[0] - a.From[0]) * (Math.Abs(a.To[0] - a.From[0]) -1 );
+                int y = a.From[1] + Math.Sign(a.To[1] - a.From[1]) * (Math.Abs(a.To[1] - a.From[1]) - 1);
                 b2.BoardArray[x, y] = null; //the tile before the To tile is cleared. if there was a piece there it died.
 
             }

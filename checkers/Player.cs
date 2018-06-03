@@ -16,6 +16,9 @@ namespace checkers
         public int direction; //1 for player 1 who moves 0 to 7, -1 for player 2 who moves 7 to 0.
         public int BoardValue;
 
+        public int wins; //score in this tourament iteration.
+        //TODO: eti tree object goes here
+
         Random rnd = new Random();
         public virtual AMove ChooseMove(AMove[] options, Board b,Form1 f, Player[] players)
         {
@@ -25,13 +28,12 @@ namespace checkers
             int a = rnd.Next(0, options.Length);
 
             //System.Threading.Thread.Sleep(100);
-            Thread.Sleep(500);
+            //Thread.Sleep(1); //
             return options[a];
         }
 
         public AMove Minimax(AMove[] options , Board b, int depth, Player[] players)
         {
-            int a;
             
             GameMaster g = new GameMaster();
             Board[] boards = new Board[options.Length];
