@@ -123,7 +123,7 @@ namespace checkers
         {
 
             GameMaster GM = (GameMaster)e.Argument;
-           GM.PvP(new Player(), this.me);
+           GM.PvP(new Player(this), this.me);
 
             if (backgroundWorker1.WorkerSupportsCancellation == true)
             {
@@ -137,7 +137,7 @@ namespace checkers
         {
 
             GameMaster GM = (GameMaster)e.Argument;
-            GM.PvP(new Player(), new Player());
+            GM.PvP(new Player(this), new Player(this));
 
             if (backgroundWorker2.WorkerSupportsCancellation == true)
             {
@@ -191,6 +191,11 @@ namespace checkers
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
