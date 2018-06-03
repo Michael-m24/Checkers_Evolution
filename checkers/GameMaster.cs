@@ -210,27 +210,6 @@ namespace checkers
         public void PerformMove(Board b1, AMove a, Player p)
         {
             PerformMove2(b1, a, p.color);
-
-                b1.BoardArray[a.To[0], a.To[1]] = b1.BoardArray[a.From[0], a.From[1]];
-                b1.BoardArray[a.From[0], a.From[1]] = null;
-                if ((Math.Abs(a.From[0] - a.To[0]) == 2) && (Math.Abs(a.From[1] - a.To[1])) == 2) //regular piece eating step
-                {
-                    f.printMessageGui("this happens");
-                    b1.BoardArray[(a.From[0] + a.To[0]) / 2, (a.From[0] + a.To[0]) / 2] = null;
-                }
-                if (a.To[1] == 0 || a.To[1] == 7) //reaching the furthest row
-                {
-                    b1.BoardArray[a.To[0], a.To[1]] = new Queen(p.color); //transform the piece to a queen
-                }
-            }
-            else //if its a queen
-            {
-                b1.BoardArray[a.To[0], a.To[1]] = b1.BoardArray[a.From[0], a.From[1]];
-                b1.BoardArray[a.From[0], a.From[1]] = null;
-                int x = a.From[0] + Math.Sign(a.To[0] - a.From[0]);
-                int y = a.From[1] + Math.Sign(a.To[1] - a.From[1]);
-                b1.BoardArray[x, y] = null; //the tile before the To tile is cleared. if there was a piece there it died.
-
         }
 
         public void PerformMove2(Board b2, AMove a, int color)

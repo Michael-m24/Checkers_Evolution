@@ -16,6 +16,8 @@ namespace checkers
         public int direction; //1 for player 1 who moves 0 to 7, -1 for player 2 who moves 7 to 0.
         public int BoardValue;
         public Form1 f;
+        public int wins; //score in this tourament iteration.
+        
 
         public Player()
         {
@@ -29,12 +31,11 @@ namespace checkers
             {
                 this.tree = checkers.createTree.buildTree();
 
-            } catch(Exception e) { f.printMessageGui("tree exception catch!"); }
+            } catch(Exception e) { f.printMessageGui("tree exception catch!"); } //TODO: remove this.
         }
 
 
-        public int wins; //score in this tourament iteration.
-        //TODO: eti tree object goes here
+        
 
         Random rnd = new Random();
         public virtual AMove ChooseMove(AMove[] options, Board b,Form1 f, Player[] players)
@@ -43,6 +44,9 @@ namespace checkers
                 return null;
             //temporary hotfix.
             int a = rnd.Next(0, options.Length);
+
+
+
 
             //System.Threading.Thread.Sleep(100);
             //Thread.Sleep(1); //
@@ -95,7 +99,7 @@ namespace checkers
                 //stoping point for the recursia 
                 //call to the heuristic evaluation function to get the value of the board
                 // BoardValue = heuristic_evaluation_function(b);
-                BoardValue = rnd.Next(-20, 20); // TODO: call eti function!!!
+                BoardValue = rnd.Next(-20, 20); // TODO: call eti function!!! //public double etiFunction(Board b) runs evaluation funcs on a board according to tree.
                 //Console.WriteLine("depth is "+depth+"val is "+BoardValue);
                 return BoardValue;
             }

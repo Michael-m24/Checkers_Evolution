@@ -66,7 +66,7 @@ namespace checkers
 
         public Player[] NextGen(Player[] arr)
         {
-            //TODO test
+            //TODO: test, add eti mutation?
             
             Player[] ans=new Player[100];
             /*
@@ -79,7 +79,7 @@ namespace checkers
             for (int i = 0; i < 20; i++)
             {
                 int a = rnd.Next(0, 4);
-                int b = rnd.Next(4, 14);
+                int b = rnd.Next(0, 14);
                 ans[i] = EtiCross(contenders[a], contenders[b]);
             }
 
