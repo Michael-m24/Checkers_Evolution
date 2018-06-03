@@ -121,7 +121,7 @@ namespace checkers
         {
 
             GameMaster GM = (GameMaster)e.Argument;
-           GM.PvP(new Player(), this.me);
+           GM.PvP(new Player(this), this.me);
 
             if (backgroundWorker1.WorkerSupportsCancellation == true)
             {
@@ -135,7 +135,7 @@ namespace checkers
         {
 
             GameMaster GM = (GameMaster)e.Argument;
-            GM.PvP(new Player(), new Player());
+            GM.PvP(new Player(this), new Player(this));
 
             if (backgroundWorker2.WorkerSupportsCancellation == true)
             {
@@ -191,6 +191,17 @@ namespace checkers
 
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        //TODO: human player mechanic. 4 hr.
+        //TODO: testing game mechanics. 8 hr.
+        //TODO: turnament mechanic. 4hr.
+        //TODO: assesment functions. 1 hr.
+        //TODO: tree building. 4 hr.
+        //TODO: genetic cross & genetic mutation. 12 hr.
 
     }
 }

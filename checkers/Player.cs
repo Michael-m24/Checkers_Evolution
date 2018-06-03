@@ -11,10 +11,27 @@ namespace checkers
 {
     class Player
     {
-        
+        public Node tree;
         public int color;
         public int direction; //1 for player 1 who moves 0 to 7, -1 for player 2 who moves 7 to 0.
         public int BoardValue;
+        public Form1 f;
+
+        public Player()
+        {
+
+        }
+
+        public Player(Form1 form)
+        {
+            f = form;
+            try
+            {
+                this.tree = checkers.createTree.buildTree();
+
+            } catch(Exception e) { f.printMessageGui("tree exception catch!"); }
+        }
+
 
         public int wins; //score in this tourament iteration.
         //TODO: eti tree object goes here
