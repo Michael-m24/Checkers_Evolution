@@ -38,19 +38,15 @@ namespace checkers
         
 
         Random rnd = new Random();
-        public virtual AMove ChooseMove(AMove[] options, Board b,Form1 f, Player[] players)
+        public virtual AMove ChooseMove(AMove[] options, Board b,Form1 f, Player[] players, int depth)
         {
             if (options == null || options.Length == 0)
                 return null;
             //temporary hotfix.
-            int a = rnd.Next(0, options.Length);
+            //int a = rnd.Next(0, options.Length);
+            AMove a = Minimax(options, b, depth, players);
 
-
-
-
-            //System.Threading.Thread.Sleep(100);
-            //Thread.Sleep(1); //
-            return options[a];
+            return a;
         }
 
         public AMove Minimax(AMove[] options , Board b, int depth, Player[] players)
@@ -96,33 +92,32 @@ namespace checkers
 
             if (depth <= 0)
             {
-                //stoping point for the recursia 
+                //stoping point for the recursion 
                 //call to the heuristic evaluation function to get the value of the board
-                // BoardValue = heuristic_evaluation_function(b);
+                // BoardValue = heuristic_evaluation_function(b); //aka eti function
                 BoardValue = rnd.Next(-20, 20); // TODO: call eti function!!! //public double etiFunction(Board b) runs evaluation funcs on a board according to tree.
                 //Console.WriteLine("depth is "+depth+"val is "+BoardValue);
                 return BoardValue;
             }
-            //if its the current player 
+            //if its the current player's turn
             if (this.color == players[turn].color)
             {
 
                 a = int.MinValue;//-infinity
                 for (int i = 0; i < boards.Length; i++)
                 {
-                    a = System.Math.Max(a, Minimax2(boards[i], depth - 1,players, 1 - turn));
+                    a = Math.Max(a, Minimax2(boards[i], depth - 1,players, 1 - turn));
                 }
                 return a;
             }
-            //if its the enemy
+            //if its the enemy's turn
             else
             {
                 
                 a = int.MaxValue;//+infinity
                 for (int i = 0; i < boards.Length; i++)
                 {
-                    Console.WriteLine("public enemy");
-                    a = System.Math.Min(a, Minimax2(boards[i], depth - 1, players ,1 - turn));
+                    a = Math.Min(a, Minimax2(boards[i], depth - 1, players ,1 - turn));
                 }
                 return a;
 

@@ -42,36 +42,12 @@ namespace checkers
             Player ans;
             turn = 1;
 
-            p1.Minimax(GetAllMoves(b, p1), b, 3, players);
+           
             
         }
 
-        /*public void HvP(Human h,Player p)
-        {   
 
-            turn= rnd.Next(2);
-            while (true)
-            {
-                Console.Write("Please enter your move:");
-                string line = Console.ReadLine();
-                int a = int.Parse(line);
-                line = Console.ReadLine();
-                int b = int.Parse(line);
-
-                AMove[] MA = GetAllMoves(b, players[turn]);
-                AMove m = players[turn].ChooseMove(MA, b, f, players);
-                while (MA != null && m != null && !IsLegalMove(b, m, players[turn])) //will only shoot in case of human player making an illegal move
-                {
-                    f.msg("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1] + " isn't legal.");
-                    m = players[turn].ChooseMove(GetAllMoves(b, players[turn]), b, f, players);
-                }
-
-                turn = Math.Abs(turn - 1);
-            }
-        }*/
-
-
-        public Player PvP(Player p1, Player p2)
+        public Player PvP(Player p1, Player p2,bool human)
         {
             Console.WriteLine("game start!");
             b = new Board();
@@ -83,56 +59,44 @@ namespace checkers
             player2.color = 2;
             player2.direction = -1;
 
-            AMove[] logAMoves = new AMove[200]; //just for testing
-            Board[] logBoards = new Board[200]; //
             int logInd = 0; //
 
             Player[] players = {p1, p2};
-            Player ans;
             turn = rnd.Next(2);
-            while (logInd<200)
+            while (logInd<150) //max moves
             {
-                //b.PrintBoard2(f); //printed in human instead
                 AMove[] MA = GetAllMoves(b, players[turn]);
-                AMove m = players[turn].ChooseMove(MA, b, f, players);
+                AMove m = players[turn].ChooseMove(MA, b, f, players,3);
                 while (MA != null && m != null && !IsLegalMove(b, m, players[turn]))
-                    //will only shoot in case of human player making an illegal move
-                {
+                { //will only shoot in case of human player making an illegal move
                     f.printMessageGui("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1] +
                                       " isn't legal.");
                     Thread.Sleep(2000); //give the human player time to read the messege
-                    m = players[turn].ChooseMove(GetAllMoves(b, players[turn]), b, f, players);
+                    if(human) //there is a human player in the game
+                        m = players[turn].ChooseMove(GetAllMoves(b, players[turn]), b, f, players,5); //the AI thinks 5 moves ahead
+                    else m = players[turn].ChooseMove(GetAllMoves(b, players[turn]), b, f, players, 3); //the AI thinks 3 moves ahead
                 }
-                if (m == null) //the player currently playing has no legal move to make
+                if (m == null) //the player currently playing has no legal move to make. win condition
                 {
-
-                    //Console.WriteLine("player " + (Math.Abs(turn - 1)+1)+" is the winner! ");
                     f.printMessageGui("player " + (Math.Abs(turn - 1) + 1) + " is the winner! ");
-                    /*
-                    for (int i = 0; i < logInd; i++)
-                    {
-                        logAMoves[i].printAMove();
-                        Console.WriteLine();
-                        logBoards[i].PrintBoard();
-                        Console.WriteLine();
-                    }
-                     * */
                     b.PrintBoard2(f);
                     //Console.WriteLine("Total moves: " + logInd);
                     return players[Math.Abs(turn - 1)]; //return the player who hasent lost
                 }
-                PerformMove(b, m, players[turn]);
                 /*
-                logAMoves[logInd] = m; // just for testing
-                logBoards[logInd] = new Board(b); //
-                 * */
+                if (logInd > 100 && b.QueenRatio(players[turn], b) == 1.0 && b.SoldierRatio(players[turn], b)==1.0) //soft tie condition 
+                {
+                    return null;
+                }
+                 */
+                PerformMove(b, m, players[turn]);
                 logInd++; //
                 turn = Math.Abs(turn - 1);
             }
             b.PrintBoard2(f);
-            //Console.WriteLine("Total moves: " + logInd);
-            return null; //in case of a game beyond 200 moves, its a tie.
+            return null; //in case of a game beyond max moves, its a tie.
         }
+
 
 
         public bool IsLegalMove(Board b, AMove a, Player p)

@@ -131,12 +131,14 @@ namespace checkers
             {
                 for (int j = 0; j < 7; j++)
                 {
-                    if(b.BoardArray[i,j]!=null && b.BoardArray[i,j].GetType()==typeof(Piece))
+                    if (b.BoardArray[i, j] != null && b.BoardArray[i, j].GetType() == typeof (Piece))
+                    {
                         if (b.BoardArray[i, j].color == p.color) c1++;
                         else c2++;
+                    }
                 }
             }
-            return c1/c2;
+            return (double)c1 / c2;
         }
 
         public double QueenRatio(Player p, Board b)
@@ -147,12 +149,14 @@ namespace checkers
             {
                 for (int j = 0; j < 7; j++)
                 {
-                    if (b.BoardArray[i, j] != null && b.BoardArray[i, j].GetType() == typeof(Queen))
+                    if (b.BoardArray[i, j] != null && b.BoardArray[i, j].GetType() == typeof (Queen))
+                    {
                         if (b.BoardArray[i, j].color == p.color) c1++;
                         else c2++;
+                    }
                 }
             }
-            return c1 / c2;
+            return (double)c1 / c2;
         }
 
         public double Exposure(Player p, Board b)

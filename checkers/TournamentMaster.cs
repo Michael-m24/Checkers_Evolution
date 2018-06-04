@@ -15,10 +15,15 @@ namespace checkers
         private GameMaster GM;
         Random rnd = new Random();
 
-        public TournamentMaster(int size, int n,Form1 frm)
+        public TournamentMaster(int size, int itr,Form1 frm)
         {
+            
             contenders=new Player[size];
-            iterations = n;
+            for (int i = 0; i < size; i++)
+            {
+                contenders[i]=new Player(frm);
+            }
+            iterations = itr;
             f = frm;
             GM=new GameMaster(frm);
         }
@@ -29,6 +34,7 @@ namespace checkers
             {
                 contenders = Round();
             }
+            f.printMessageGui("The tournament is over!");
             return contenders[0];
         }
         public Player[] Round()
@@ -43,7 +49,7 @@ namespace checkers
                 {
                     if (i != j)//dont play against yourself lol
                     {
-                        Player p = GM.PvP(contenders[i], contenders[j]);
+                        Player p = GM.PvP(contenders[i], contenders[j],false);
                         if (p != null && p == contenders[i]) contenders[i].wins++; //whoevr wins gets a point
                         if (p != null && p == contenders[j]) contenders[j].wins++;
                         //if its a null its a tie

@@ -11,7 +11,7 @@ namespace checkers
     {
         Form1 form;
         public AMove stored;
-        public override  AMove ChooseMove(AMove[] options, Board b, Form1 f, Player[] players)
+        public override  AMove ChooseMove(AMove[] options, Board b, Form1 f, Player[] players,int depth)
         {
             this.form = f;
             b.PrintBoard2(f); //

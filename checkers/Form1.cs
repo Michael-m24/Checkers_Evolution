@@ -19,23 +19,22 @@ namespace checkers
         private BackgroundWorker backgroundWorker2;
         private bool moveIsClicked=false;
         private Human me = new Human();
+        private Player skyNet;
         public Form1()
         {
             InitializeComponent();
             for (int i = 0; i < 8; i++) label1.Text += i + Environment.NewLine;  //Y axis numbering label
-           
+            skyNet = new Player(this);
+
 
         }
         delegate void StringPrintDelegate(string text);
         delegate void clearTextBoxes();
         private void button1_Click(object sender, EventArgs e)
         {
-            //Board Board1=new Board();
-            //Board1.PrintBoard();
+            printMessageGui("");
             TournamentMaster TM=new TournamentMaster(100,10,this);
             GameMaster GM = new GameMaster(this);
-            //GM.PvP(new Player(), new Player());
-            //GM.tmpp(new Player(), new Player());
             backgroundWorker2 = new BackgroundWorker();
             backgroundWorker2.WorkerReportsProgress = true;
             backgroundWorker2.WorkerSupportsCancellation = true;
@@ -43,7 +42,8 @@ namespace checkers
             if (backgroundWorker2.IsBusy != true)
             {
                 // Start the asynchronous operation.
-                backgroundWorker2.RunWorkerAsync(GM);
+                //backgroundWorker2.RunWorkerAsync(GM); 
+                backgroundWorker2.RunWorkerAsync(TM); 
             }
 
         }
@@ -105,7 +105,7 @@ namespace checkers
             //Thread t =new Thread (new ParameterizedThreadStart(run_game_hvp));
             //t.Start(GM);
             //t.Join();
-            //GM.PvP(new Player(), me);
+            //GM.PvP(new Player(), me,true);
             backgroundWorker1 = new BackgroundWorker();
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
@@ -119,9 +119,9 @@ namespace checkers
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-
+            //human player
             GameMaster GM = (GameMaster)e.Argument;
-           GM.PvP(new Player(this), this.me);
+            GM.PvP(skyNet, this.me,true);
 
             if (backgroundWorker1.WorkerSupportsCancellation == true)
             {
@@ -133,10 +133,14 @@ namespace checkers
 
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
-
+            //AI only
+            /*
             GameMaster GM = (GameMaster)e.Argument;
-            GM.PvP(new Player(this), new Player(this));
-
+            GM.PvP(new Player(this), new Player(this),false);
+            */ //TODO: connect buttons to TM mechanic
+            TournamentMaster TM = (TournamentMaster)e.Argument;
+            //TM.Go();
+           
             if (backgroundWorker2.WorkerSupportsCancellation == true)
             {
                 // Cancel the asynchronous operation.
@@ -196,12 +200,7 @@ namespace checkers
 
         }
 
-        //TODO: human player mechanic. 4 hr.
-        //TODO: testing game mechanics. 8 hr.
-        //TODO: turnament mechanic. 4hr.
-        //TODO: assesment functions. 1 hr.
-        //TODO: tree building. 4 hr.
-        //TODO: genetic cross & genetic mutation. 12 hr.
+
 
     }
 }
