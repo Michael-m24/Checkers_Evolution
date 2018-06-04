@@ -64,29 +64,34 @@ namespace checkers
         }
 
         public Player[] OrderByWins(Player[] arr)
-        { //TODO: test
+        { 
             Array.Sort(arr,
-                delegate(Player x, Player y) { return x.wins.CompareTo(y.wins); });
+                delegate(Player x, Player y) { return y.wins.CompareTo(x.wins); });
             return arr;
         }
 
         public Player[] NextGen(Player[] arr)
         {
             //TODO: test, add eti mutation?
-            
-            Player[] ans=new Player[100];
+
+            Player[] ans = new Player[contenders.Length];
             /*
-            for (int i = 0; i < 80; i++)
+            for (int i = 0; i < contenders.Length*0.8; i++)
             {
-                int a = rnd.Next(0, 14);
+                int a = rnd.Next(0, (int)contenders.Length*0.2);
                 int b = rnd.Next(14, 99);
                 ans[i] = EtiCross(contenders[a], contenders[b]);
             }
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < contenders.Length*0.1; i++)
+            {
+                int a = rnd.Next(0, (int)contenders.Length*0.1);
+                int b = rnd.Next(0, (int)contenders.Length*0.2);
+                ans[i] = EtiCross(contenders[a], contenders[b]);
+            }
+            for (int i = 0; i < contenders.Length*0.1; i++)
             {
                 int a = rnd.Next(0, 4);
-                int b = rnd.Next(0, 14);
-                ans[i] = EtiCross(contenders[a], contenders[b]);
+                ans[i] = Etimutate(contenders[a]);
             }
 
 
@@ -94,6 +99,24 @@ namespace checkers
 
             */
             return ans;
+        }
+
+        public void tmp()
+        {
+            for (int i = 0; i < contenders.Length; i++)
+            {
+                contenders[i].wins = rnd.Next(0, 20);
+            }
+            for (int i = 0; i < contenders.Length; i++)
+            {
+                Console.WriteLine(contenders[i].wins);
+            }
+            Console.WriteLine("order");
+            OrderByWins(contenders);
+            for (int i = 0; i < contenders.Length; i++)
+            {
+                Console.WriteLine(contenders[i].wins);
+            }
         }
 
     }

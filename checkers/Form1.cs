@@ -33,7 +33,7 @@ namespace checkers
         private void button1_Click(object sender, EventArgs e)
         {
             printMessageGui("");
-            TournamentMaster TM=new TournamentMaster(100,10,this);
+            TournamentMaster TM=new TournamentMaster(10,10,this);
             //GameMaster GM = new GameMaster(this);
             backgroundWorker2 = new BackgroundWorker();
             backgroundWorker2.WorkerReportsProgress = true;
@@ -131,12 +131,9 @@ namespace checkers
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
             //AI only
-            /*
-            GameMaster GM = (GameMaster)e.Argument;
-            GM.PvP(new Player(this), new Player(this),false);
-            */ //TODO: connect buttons to TM mechanic
             TournamentMaster TM = (TournamentMaster)e.Argument;
-            TM.Go();
+            TM.tmp();
+            skyNet=TM.Go();
            
             if (backgroundWorker2.WorkerSupportsCancellation == true)
             {
