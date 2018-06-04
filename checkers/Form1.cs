@@ -34,7 +34,7 @@ namespace checkers
         {
             printMessageGui("");
             TournamentMaster TM=new TournamentMaster(100,10,this);
-            GameMaster GM = new GameMaster(this);
+            //GameMaster GM = new GameMaster(this);
             backgroundWorker2 = new BackgroundWorker();
             backgroundWorker2.WorkerReportsProgress = true;
             backgroundWorker2.WorkerSupportsCancellation = true;
@@ -102,10 +102,7 @@ namespace checkers
         private void button3_Click(object sender, EventArgs e)
         {
             GameMaster GM = new GameMaster(this);
-            //Thread t =new Thread (new ParameterizedThreadStart(run_game_hvp));
-            //t.Start(GM);
-            //t.Join();
-            //GM.PvP(new Player(), me,true);
+          
             backgroundWorker1 = new BackgroundWorker();
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
@@ -139,7 +136,7 @@ namespace checkers
             GM.PvP(new Player(this), new Player(this),false);
             */ //TODO: connect buttons to TM mechanic
             TournamentMaster TM = (TournamentMaster)e.Argument;
-            //TM.Go();
+            TM.Go();
            
             if (backgroundWorker2.WorkerSupportsCancellation == true)
             {
