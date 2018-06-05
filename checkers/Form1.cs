@@ -132,7 +132,7 @@ namespace checkers
         {
             //AI only
             TournamentMaster TM = (TournamentMaster)e.Argument;
-            TM.tmp();
+            //TM.tmp();
             skyNet=TM.Go();
            
             if (backgroundWorker2.WorkerSupportsCancellation == true)

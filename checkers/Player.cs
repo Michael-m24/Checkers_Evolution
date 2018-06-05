@@ -29,7 +29,7 @@ namespace checkers
             f = form;
             try
             {
-                //this.tree = checkers.createTree.buildTree(); //todo: enable this
+                this.tree = checkers.createTree.buildTree(); //todo: enable this
 
             } catch(Exception e) { f.printMessageGui("tree exception catch!"); } //TODO: remove this.
         }
@@ -100,7 +100,7 @@ namespace checkers
                 res.Add(b.SoldierRatio(players[turn], b));
                 res.Add(b.QueenRatio(players[turn], b));
                 res.Add(b.Exposure(players[turn], b));
-                BoardValue = (int)this.tree.etiFunc(res);
+                BoardValue = (int)tree.etiFunc(res);
                  //BoardValue = rnd.Next(-20, 20); // TODO: call eti function!!! //public double etiFunction(Board b) runs evaluation funcs on a board according to tree.
                 //Console.WriteLine("depth is "+depth+"val is "+BoardValue);
                 return BoardValue;

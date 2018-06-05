@@ -7,7 +7,7 @@ namespace checkers
         public static int MAX_SIZE = 5;
         public static int SIZE = 1;
         public static int SIZE2 = 0;
-        private List<double> results;
+        public static List<double> results;
         public string sign;
         public double value;
         public List<Node> childNodes;
@@ -29,12 +29,17 @@ namespace checkers
 
         public double etiFunc(List<double> results)
         {
-            this.results = results;
+            //this.results = null;
+           // this.results = new List<double>();
+            setResults(results);
             eval_tree(this);
             return this.value; 
         }
-
-        public List<double> getResults() { return results; }
+        public static void setResults(List<double> results)
+        {
+            Node.results = results;
+        }
+        public List<double> getResults() { return Node.results; }
 
         abstract public void build_sons();
         public void print_tree(Node cur)

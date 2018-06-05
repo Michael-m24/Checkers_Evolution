@@ -176,8 +176,8 @@ namespace checkers
                         {
                             if (i+1 >=0 && i+1<=7)
                                 if (j - p.direction >= 0 && j - p.direction <= 7 && b.BoardArray[i+1, j-p.direction] == null) c1++;
-                            if (i - 1 >= 0 && i - 1 <= 7)
-                                if (j - p.direction >= 0 && j - p.direction <= 7 && b.BoardArray[i + 1, j - p.direction] == null) c1++;
+                            //if (i - 1 >= 0 && i - 1 <= 7)
+                               // if (j - p.direction >= 0 && j - p.direction <= 7 && b.BoardArray[i + 1, j - p.direction] == null) c1++;
                         }
                             
                     }
