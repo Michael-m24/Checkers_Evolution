@@ -8,7 +8,7 @@ namespace checkers
 {
     public class Eval_func:Leaf
     {
-        List<string> eval_funcs = new List<string> { "f1", "f2", "f3" };
+        List<string> eval_funcs = new List<string> { "FinishLineProx", "SoldierRatio", "QueenRatio", "Exposure" };
 
         public Eval_func()
         {
@@ -17,7 +17,26 @@ namespace checkers
         }
         public override void eval()//Need to call to the eval func and return it's returned value;
         {
-            this.value = 1;
+            switch (this.sign) {
+
+                case "FinishLineProx":
+                    this.value = this.getResults()[0];
+                    break;
+                case "SoldierRatio":
+                    this.value = this.getResults()[1];
+                    break;
+                case "QueenRatio":
+                    this.value = this.getResults()[2];
+                    break;
+                case "Exposure":
+                    this.value = this.getResults()[3];
+                    break;
+
+
+            }
+
+
+
         }
     }
 }

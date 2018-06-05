@@ -22,7 +22,7 @@ namespace checkers
             root.print_tree(root);
             Console.WriteLine("================================================  " + checkers.Node.SIZE + " LEVELS  ================================================  ");
             Console.WriteLine("=============================>>>> Total Calculate: " + root.value + " <<<<=============================");
-            root.eval_tree(root);
+           // root.eval_tree(root);
 
             return root;
         }

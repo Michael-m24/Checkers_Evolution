@@ -7,7 +7,7 @@ namespace checkers
         public static int MAX_SIZE = 5;
         public static int SIZE = 1;
         public static int SIZE2 = 0;
-
+        private List<double> results;
         public string sign;
         public double value;
         public List<Node> childNodes;
@@ -15,7 +15,7 @@ namespace checkers
         abstract public void eval();
         public void eval_tree(Node cur)
         {
-
+            
                 if (cur.childNodes != null)
                 {
                     
@@ -26,6 +26,16 @@ namespace checkers
                 }
                 cur.eval(); 
         }
+
+        public double etiFunc(List<double> results)
+        {
+            this.results = results;
+            eval_tree(this);
+            return this.value; 
+        }
+
+        public List<double> getResults() { return results; }
+
         abstract public void build_sons();
         public void print_tree(Node cur)
         {

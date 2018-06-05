@@ -83,7 +83,7 @@ namespace checkers
             GameMaster g = new GameMaster();
             AMove[] options = g.GetAllMoves(b,players[turn]);
             Board[] boards = new Board[options.Length];
-            
+            List<double> res=null;
             for (int i = 0; i < boards.Length; i++)
             {
                 boards[i] = new Board(b);
@@ -95,7 +95,13 @@ namespace checkers
                 //stoping point for the recursion 
                 //call to the heuristic evaluation function to get the value of the board
                 // BoardValue = heuristic_evaluation_function(b); //aka eti function
-                BoardValue = rnd.Next(-20, 20); // TODO: call eti function!!! //public double etiFunction(Board b) runs evaluation funcs on a board according to tree.
+                res = new List<double>();
+                res.Add(b.FinishLineProx(players[turn], b));
+                res.Add(b.SoldierRatio(players[turn], b));
+                res.Add(b.QueenRatio(players[turn], b));
+                res.Add(b.Exposure(players[turn], b));
+                BoardValue = (int)this.tree.etiFunc(res);
+                 //BoardValue = rnd.Next(-20, 20); // TODO: call eti function!!! //public double etiFunction(Board b) runs evaluation funcs on a board according to tree.
                 //Console.WriteLine("depth is "+depth+"val is "+BoardValue);
                 return BoardValue;
             }

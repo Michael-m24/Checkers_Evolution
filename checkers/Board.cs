@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace checkers
 {
-    class Board
+   class Board
     {
         public Piece[,] BoardArray = new Piece[8, 8];  //board[x,y]
         public Form1 myForm;
