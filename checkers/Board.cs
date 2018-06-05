@@ -138,7 +138,9 @@ namespace checkers
                     }
                 }
             }
-            return (double)c1 / c2;
+            if (c2 != 0)
+                return (double)c1 / c2;
+            return int.MaxValue;
         }
 
         public double QueenRatio(Player p, Board b)
@@ -156,7 +158,9 @@ namespace checkers
                     }
                 }
             }
-            return (double)c1 / c2;
+            if (c2 != 0)
+                return (double) c1/c2;
+            return int.MaxValue;
         }
 
         public double Exposure(Player p, Board b)

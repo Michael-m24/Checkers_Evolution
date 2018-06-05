@@ -17,7 +17,7 @@ namespace checkers
         public int BoardValue;
         public Form1 f;
         public int wins; //score in this tourament iteration.
-        
+        Random rnd = new Random();
 
         public Player()
         {
@@ -29,7 +29,7 @@ namespace checkers
             f = form;
             try
             {
-                this.tree = checkers.createTree.buildTree();
+                //this.tree = checkers.createTree.buildTree(); //todo: enable this
 
             } catch(Exception e) { f.printMessageGui("tree exception catch!"); } //TODO: remove this.
         }
@@ -37,7 +37,7 @@ namespace checkers
 
         
 
-        Random rnd = new Random();
+        
         public virtual AMove ChooseMove(AMove[] options, Board b,Form1 f, Player[] players, int depth)
         {
             if (options == null || options.Length == 0)
