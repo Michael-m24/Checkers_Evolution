@@ -33,7 +33,7 @@ namespace checkers
         private void button1_Click(object sender, EventArgs e)
         {
             printMessageGui("");
-            TournamentMaster TM=new TournamentMaster(10,10,this);
+            TournamentMaster TM=new TournamentMaster(10,3,this);
             //GameMaster GM = new GameMaster(this);
             backgroundWorker2 = new BackgroundWorker();
             backgroundWorker2.WorkerReportsProgress = true;

@@ -32,6 +32,7 @@ namespace checkers
         {
             for (int i = 0; i < iterations; i++)
             {
+                Console.WriteLine("Round "+i+" ! FIGHT!");
                 contenders = Round();
             }
             f.printMessageGui("The tournament is over!");
@@ -45,7 +46,7 @@ namespace checkers
             }
             for (int i = 0; i < contenders.Length; i++)
             {
-                for (int j = 0; j < contenders.Length; j++)
+                for (int j = i; j < contenders.Length; j++)
                 {
                     if (i != j)//dont play against yourself lol
                     {
@@ -64,9 +65,20 @@ namespace checkers
         }
 
         public Player[] OrderByWins(Player[] arr)
-        { 
+        {
+            Console.WriteLine();
+            foreach (Player var in arr)
+            {
+                Console.Write(var.wins + "  ");
+            }
+            Console.WriteLine("win array before");
             Array.Sort(arr,
                 delegate(Player x, Player y) { return y.wins.CompareTo(x.wins); });
+            foreach (Player var in arr)
+            {
+                Console.Write(var.wins+"  ");
+            }
+            Console.WriteLine("win array after \n");
             return arr;
         }
 
@@ -75,6 +87,7 @@ namespace checkers
             //TODO: test, add eti mutation?
 
             Player[] ans = new Player[contenders.Length];
+            ans = contenders;
             /*
             for (int i = 0; i < contenders.Length*0.8; i++)
             {
@@ -82,41 +95,46 @@ namespace checkers
                 int b = rnd.Next(14, 99);
                 ans[i] = EtiCross(contenders[a], contenders[b]);
             }
+            
             for (int i = 0; i < contenders.Length*0.1; i++)
             {
                 int a = rnd.Next(0, (int)contenders.Length*0.1);
                 int b = rnd.Next(0, (int)contenders.Length*0.2);
                 ans[i] = EtiCross(contenders[a], contenders[b]);
             }
-            for (int i = 0; i < contenders.Length*0.1; i++)
+             
+             for (int i = 0; i < contenders.Length*0.1; i++)
+             */
+            for (int i = 0; i < contenders.Length; i++)
             {
                 int a = rnd.Next(0, 4);
-                ans[i] = Etimutate(contenders[a]);
+                ans[i] = new Player(f,contenders[a].tree);
             }
 
 
 
 
-            */
+            
             return ans;
         }
 
         public void tmp()
         {
-            for (int i = 0; i < contenders.Length; i++)
-            {
-                contenders[i].wins = rnd.Next(0, 20);
-            }
-            for (int i = 0; i < contenders.Length; i++)
-            {
-                Console.WriteLine(contenders[i].wins);
-            }
-            Console.WriteLine("order");
-            OrderByWins(contenders);
-            for (int i = 0; i < contenders.Length; i++)
-            {
-                Console.WriteLine(contenders[i].wins);
-            }
+            Board b=new Board();
+            //b.Empty();
+
+            //b.BoardArray[1, 0] = new Piece(2);
+            //b.BoardArray[0, 1] = new Piece(1);
+
+            Player player1 = new Player(f);
+            Player player2 = new Player(f);
+            player1.color = 1;
+            player1.direction = 1;
+            player2.color = 2;
+            player2.direction = -1;
+
+            Console.WriteLine("1exp="+b.Exposure(player1,b));
+            Console.WriteLine("2exp=" + b.Exposure(player2, b));
         }
 
     }

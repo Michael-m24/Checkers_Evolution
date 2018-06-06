@@ -14,7 +14,7 @@ namespace checkers
         public Node tree;
         public int color;
         public int direction; //1 for player 1 who moves 0 to 7, -1 for player 2 who moves 7 to 0.
-        public int BoardValue;
+        public double BoardValue;
         public Form1 f;
         public int wins; //score in this tourament iteration.
         Random rnd = new Random();
@@ -29,9 +29,21 @@ namespace checkers
             f = form;
             try
             {
-                this.tree = checkers.createTree.buildTree(); //todo: enable this
+                this.tree = checkers.createTree.buildTree();
 
-            } catch(Exception e) { f.printMessageGui("tree exception catch!"); } //TODO: remove this.
+            }
+            catch (Exception e) { Console.WriteLine("tree exception catch!"); } 
+        }
+
+        public Player(Form1 form,Node t)
+        {
+            f = form;
+            try
+            {
+                this.tree = t.mutation(t);
+
+            }
+            catch (Exception e) { Console.WriteLine("tree exception catch!"); } 
         }
 
 
@@ -54,7 +66,7 @@ namespace checkers
             
             GameMaster g = new GameMaster();
             Board[] boards = new Board[options.Length];
-            int[] score = new int[options.Length];
+            double[] score = new double[options.Length];
             int bestMove = 0;
             for (int i = 0; i < boards.Length; i++)
             {
@@ -77,9 +89,9 @@ namespace checkers
 
         }
 
-        public int Minimax2( Board b, int depth, Player[] players,int turn)
+        public double Minimax2( Board b, int depth, Player[] players,int turn)
         {
-            int a;
+            double a;
             GameMaster g = new GameMaster();
             AMove[] options = g.GetAllMoves(b,players[turn]);
             Board[] boards = new Board[options.Length];
@@ -100,8 +112,7 @@ namespace checkers
                 res.Add(b.SoldierRatio(players[turn], b));
                 res.Add(b.QueenRatio(players[turn], b));
                 res.Add(b.Exposure(players[turn], b));
-                BoardValue = (int)tree.etiFunc(res);
-                 //BoardValue = rnd.Next(-20, 20); // TODO: call eti function!!! //public double etiFunction(Board b) runs evaluation funcs on a board according to tree.
+                BoardValue = (double)tree.etiFunc(res);
                 //Console.WriteLine("depth is "+depth+"val is "+BoardValue);
                 return BoardValue;
             }

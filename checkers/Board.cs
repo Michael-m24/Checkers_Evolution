@@ -170,21 +170,48 @@ namespace checkers
             if (p.direction == 1)
             {
                 for (int i = 0; i < 8; i++)
-                    for (int j = 7; j > 0; j--)
+                    for (int j = 7; j >= 0; j--)
                     {
                         if (b.BoardArray[i, j] != null && b.BoardArray[i, j].color == p.color)
                         {
                             if (i+1 >=0 && i+1<=7)
                                 if (j - p.direction >= 0 && j - p.direction <= 7 && b.BoardArray[i+1, j-p.direction] == null) c1++;
-                            //if (i - 1 >= 0 && i - 1 <= 7)
-                               // if (j - p.direction >= 0 && j - p.direction <= 7 && b.BoardArray[i + 1, j - p.direction] == null) c1++;
+                            if (i - 1 >= 0 && i - 1 <= 7)
+                                if (j - p.direction >= 0 && j - p.direction <= 7 && b.BoardArray[i - 1, j - p.direction] == null) c1++;
                         }
                             
                     }
               
             }
+            if (p.direction == -1)
+            {
+                for (int i = 0; i < 8; i++)
+                    for (int j = 7; j >= 0; j--)
+                    {
+                        if (b.BoardArray[i, j] != null && b.BoardArray[i, j].color == p.color)
+                        {
+                            if (i + 1 >= 0 && i + 1 <= 7)
+                                if (j - p.direction >= 0 && j - p.direction <= 7 && b.BoardArray[i + 1, j - p.direction] == null) c1++;
+                            if (i - 1 >= 0 && i - 1 <= 7)
+                                if (j - p.direction >= 0 && j - p.direction <= 7 && b.BoardArray[i - 1, j - p.direction] == null) c1++;
+                        }
+
+                    }
+            }
             return c1;
         }
+
+       public void Empty()
+       {
+           for (int i = 0; i < 8; i++)
+           {
+               for (int j = 0; j < 8; j++)
+               {
+                   BoardArray[i, j] = null;
+                   
+               }
+           }
+       }
 
 
     }
