@@ -35,15 +35,9 @@ namespace checkers
             catch (Exception e) { Console.WriteLine("tree exception catch!"); } 
         }
 
-        public Player(Form1 form,Node t)
+        public void Plant( Node t)
         {
-            f = form;
-            try
-            {
-                this.tree = t.mutation(t);
-
-            }
-            catch (Exception e) { Console.WriteLine("tree exception catch!"); } 
+            tree = t;
         }
 
 
@@ -112,7 +106,9 @@ namespace checkers
                 res.Add(b.SoldierRatio(players[turn], b));
                 res.Add(b.QueenRatio(players[turn], b));
                 res.Add(b.Exposure(players[turn], b));
-                BoardValue = (double)tree.etiFunc(res);
+                if (tree != null) //
+                    BoardValue = (double) tree.etiFunc(res);
+                else return rnd.Next(-20,20); //if ther is no tree, return random value.  //TODO: make sure this doesnt happen.
                 //Console.WriteLine("depth is "+depth+"val is "+BoardValue);
                 return BoardValue;
             }

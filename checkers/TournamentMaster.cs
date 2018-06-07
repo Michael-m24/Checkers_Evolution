@@ -84,37 +84,38 @@ namespace checkers
 
         public Player[] NextGen(Player[] arr)
         {
-            //TODO: test, add eti mutation?
+            //TODO: test
 
             Player[] ans = new Player[contenders.Length];
-            ans = contenders;
-            /*
-            for (int i = 0; i < contenders.Length*0.8; i++)
+            int all = contenders.Length;
+            int top = (int)Math.Ceiling(contenders.Length * 0.1);
+            int good = (int)Math.Ceiling(contenders.Length * 0.2)+top;
+            int rest = all-good;
+
+            Console.WriteLine("top "+top+" good "+good+" rest "+rest);
+
+            //ans = contenders;
+            
+            for (int i = good; i < all; i++)
             {
-                int a = rnd.Next(0, (int)contenders.Length*0.2);
-                int b = rnd.Next(14, 99);
-                ans[i] = EtiCross(contenders[a], contenders[b]);
+                int a = rnd.Next(all);
+                int b = rnd.Next(good);
+                ans[i].Plant(contenders[a].tree.mutation(contenders[b].tree));
             }
             
-            for (int i = 0; i < contenders.Length*0.1; i++)
+            for (int i = top; i < good; i++)
             {
-                int a = rnd.Next(0, (int)contenders.Length*0.1);
-                int b = rnd.Next(0, (int)contenders.Length*0.2);
-                ans[i] = EtiCross(contenders[a], contenders[b]);
+                int a = rnd.Next(top);
+                int b = rnd.Next(good);
+                ans[i] .Plant( contenders[a].tree.mutation(contenders[b].tree));
             }
              
-             for (int i = 0; i < contenders.Length*0.1; i++)
-             */
-            for (int i = 0; i < contenders.Length; i++)
+            for (int i = 0; i < top; i++)
             {
                 int a = rnd.Next(0, 4);
-                ans[i] = new Player(f,contenders[a].tree);
+                ans[i].Plant(contenders[a].tree.mutation(contenders[a].tree));
             }
-
-
-
-
-            
+     
             return ans;
         }
 
@@ -133,8 +134,12 @@ namespace checkers
             player2.color = 2;
             player2.direction = -1;
 
-            Console.WriteLine("1exp="+b.Exposure(player1,b));
-            Console.WriteLine("2exp=" + b.Exposure(player2, b));
+            for (int i = 0; i < 100; i++)
+            {
+                Player player3=new Player(f);
+                player3.Plant(player1.tree.mutation(player2.tree));
+                Console.WriteLine(player3.tree==null);
+            }
         }
 
     }

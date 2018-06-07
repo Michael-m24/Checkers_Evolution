@@ -33,7 +33,7 @@ namespace checkers
         private void button1_Click(object sender, EventArgs e)
         {
             printMessageGui("");
-            TournamentMaster TM=new TournamentMaster(10,3,this);
+            TournamentMaster TM=new TournamentMaster(5,10,this);
             //GameMaster GM = new GameMaster(this);
             backgroundWorker2 = new BackgroundWorker();
             backgroundWorker2.WorkerReportsProgress = true;
@@ -132,8 +132,8 @@ namespace checkers
         {
             //AI only
             TournamentMaster TM = (TournamentMaster)e.Argument;
-            //TM.tmp();
-            skyNet=TM.Go();
+            TM.tmp();
+            //skyNet=TM.Go();
            
             if (backgroundWorker2.WorkerSupportsCancellation == true)
             {
