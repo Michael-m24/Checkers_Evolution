@@ -71,7 +71,12 @@ namespace checkers
             
              lock (syncLock)
             {  //synchronize
-
+                if (min < max)
+                {
+                    int tmp = max;
+                    max = min;
+                    min = tmp;
+                }
             return random.Next(min, max);
             }
         }

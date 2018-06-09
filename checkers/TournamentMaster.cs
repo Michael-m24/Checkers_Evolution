@@ -59,7 +59,7 @@ namespace checkers
                 }
             }
             Player[] ans = OrderByWins(contenders);
-            ans = NextGen(ans);
+            ans = NextGenV1(ans);
             return ans;
 
         }
@@ -82,7 +82,7 @@ namespace checkers
             return arr;
         }
 
-        public Player[] NextGen(Player[] arr)
+        public Player[] NextGenV1(Player[] arr)
         {
             //TODO: test
 
@@ -95,7 +95,7 @@ namespace checkers
             Console.WriteLine("top "+top+" good "+good+" rest "+rest);
 
             //ans = contenders;
-            
+            //chhose 5, best 2 chance cross chance mutation
             for (int i = good; i < all; i++)
             {
                 int a = rnd.Next(all);
@@ -112,10 +112,43 @@ namespace checkers
              
             for (int i = 0; i < top; i++)
             {
-                int a = rnd.Next(0, 4);
+                int a = rnd.Next(0, top);
                 ans[i].Plant(contenders[a].tree.mutation(contenders[a].tree));
             }
      
+            return ans;
+        }
+
+        public Player[] NextGenV2(Player[] arr)
+        {
+            //TODO: test
+
+            int mutationChance = 10;
+            int crossChance = 90;
+            int size = contenders.Length;
+            Player[] ans = new Player[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                ans[i]=new Player(f);
+
+                Player[] grouping=new Player[5];
+
+                for (int j = 0; j < 5; j++)
+                {
+                    grouping[j]=contenders[rnd.Next(size)];
+                }
+                grouping=OrderByWins(grouping);
+
+                int a=rnd.Next(100);
+                
+                if(a<crossChance)
+                    ans[i].Plant(grouping[0].tree.mutation(contenders[1].tree)); //cross
+                else if (a < crossChance + mutationChance)
+                    ans[i].Plant(grouping[0].tree.mutation(contenders[0].tree)); //mutation
+                else ans[i] = grouping[0]; //elitism-ish
+
+            }
             return ans;
         }
 
