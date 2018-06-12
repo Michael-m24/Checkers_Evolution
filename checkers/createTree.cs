@@ -19,9 +19,9 @@ namespace checkers
             root.childNodes = new List<Node>();
             root.build_sons();
             root.bulid_tree(root);
-            root.print_tree(root);
-            Console.WriteLine("================================================  " + checkers.Node.SIZE + " LEVELS  ================================================  ");
-            Console.WriteLine("=============================>>>> Total Calculate: " + root.value + " <<<<=============================");
+            //root.print_tree(root);
+           //Console.WriteLine("================================================  " + checkers.Node.SIZE + " LEVELS  ================================================  ");
+           // Console.WriteLine("=============================>>>> Total Calculate: " + root.value + " <<<<=============================");
            // root.eval_tree(root);
 
             return root;

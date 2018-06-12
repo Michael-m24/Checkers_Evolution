@@ -17,6 +17,13 @@ namespace checkers
             this.childNodes = new List<Node>();
            
         }
+        public cond_node(cond_node old)
+        {
+            this.sign = old.sign;//Random boolean operator from the operators list- cond_ops
+            this.value = old.value;//No value yet
+            this.childNodes = new List<Node>();
+
+        }
 
         public override void eval()
         {

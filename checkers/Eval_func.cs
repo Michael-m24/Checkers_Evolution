@@ -15,6 +15,11 @@ namespace checkers
                 this.sign = eval_funcs[GetRandom(0, 100) % 3];
             
         }
+        public Eval_func(Eval_func old)
+        {
+            this.sign = old.sign;
+
+        }
         public override void eval()//Need to call to the eval func and return it's returned value;
         {
             switch (this.sign) {

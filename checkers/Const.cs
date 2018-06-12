@@ -15,6 +15,13 @@ namespace checkers
             this.sign = (this.value).ToString();
         }
 
+        public Const(Const old)
+        {
+
+            this.value = old.value;
+            this.sign =old.sign;
+        }
+
         public override void eval()
         {
            

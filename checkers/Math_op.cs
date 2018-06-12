@@ -20,7 +20,13 @@ namespace checkers
             this.childNodes = new List<Node>();
             
         }
+        public Math_op(Math_op old)
+        {
+            this.sign = old.sign;
+            this.value = old.value;
+            this.childNodes = new List<Node>();
 
+        }
         public override void eval()
         {
             switch (this.sign)

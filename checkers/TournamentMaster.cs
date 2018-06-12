@@ -82,7 +82,7 @@ namespace checkers
             return arr;
         }
 
-        public Player[] NextGenV1(Player[] arr)
+        /*public Player[] NextGen(Player[] arr)
         {
             //TODO: test
 
@@ -95,12 +95,13 @@ namespace checkers
             Console.WriteLine("top "+top+" good "+good+" rest "+rest);
 
             //ans = contenders;
-            //chhose 5, best 2 chance cross chance mutation
+            
             for (int i = good; i < all; i++)
             {
                 int a = rnd.Next(all);
                 int b = rnd.Next(good);
                 ans[i].Plant(contenders[a].tree.mutation(contenders[b].tree));
+                
             }
             
             for (int i = top; i < good; i++)
@@ -117,6 +118,45 @@ namespace checkers
             }
      
             return ans;
+        }*/
+
+
+
+        public Player[] NextGenV1(Player[] arr)
+        {
+            //TODO: test
+
+            Player[] ans = new Player[contenders.Length];
+            int all = contenders.Length;
+            int top = (int)Math.Ceiling(contenders.Length * 0.1);
+            int good = (int)Math.Ceiling(contenders.Length * 0.2) + top;
+            int rest = all - good;
+
+            Console.WriteLine("top " + top + " good " + good + " rest " + rest);
+
+            //ans = contenders;
+            //chhose 5, best 2 chance cross chance mutation
+            for (int i = good; i < all; i++)
+            {
+                int a = rnd.Next(all);
+                int b = rnd.Next(good);
+                ans[i].Plant(contenders[a].tree.mutation(contenders[b].tree));
+            }
+
+            for (int i = top; i < good; i++)
+            {
+                int a = rnd.Next(top);
+                int b = rnd.Next(good);
+                ans[i].Plant(contenders[a].tree.mutation(contenders[b].tree));
+            }
+
+            for (int i = 0; i < top; i++)
+            {
+                int a = rnd.Next(0, top);
+                ans[i].Plant(contenders[a].tree.mutation(contenders[a].tree));
+            }
+
+            return ans;
         }
 
         public Player[] NextGenV2(Player[] arr)
@@ -130,19 +170,19 @@ namespace checkers
 
             for (int i = 0; i < size; i++)
             {
-                ans[i]=new Player(f);
+                ans[i] = new Player(f);
 
-                Player[] grouping=new Player[5];
+                Player[] grouping = new Player[5];
 
                 for (int j = 0; j < 5; j++)
                 {
-                    grouping[j]=contenders[rnd.Next(size)];
+                    grouping[j] = contenders[rnd.Next(size)];
                 }
-                grouping=OrderByWins(grouping);
+                grouping = OrderByWins(grouping);
 
-                int a=rnd.Next(100);
-                
-                if(a<crossChance)
+                int a = rnd.Next(100);
+
+                if (a < crossChance)
                     ans[i].Plant(grouping[0].tree.mutation(contenders[1].tree)); //cross
                 else if (a < crossChance + mutationChance)
                     ans[i].Plant(grouping[0].tree.mutation(contenders[0].tree)); //mutation
@@ -152,9 +192,39 @@ namespace checkers
             return ans;
         }
 
+
+        /* public void tmp()
+         {
+             Board b=new Board();
+             //b.Empty();
+
+             //b.BoardArray[1, 0] = new Piece(2);
+             //b.BoardArray[0, 1] = new Piece(1);
+
+             Player player1 = new Player(f);
+             player1.tree.print_tree(player1.tree);
+             Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@");
+             Node New = player1.tree.copy_tree(player1.tree,new Math_op());
+             New.print_tree(New);
+
+             /*Player player2 = new Player(f);
+             player1.color = 1;
+             player1.direction = 1;
+             player2.color = 2;
+             player2.direction = -1;
+
+             for (int i = 0; i < 100; i++)
+             {
+                 Player player3=new Player(f);
+                 player3.Plant(player1.tree.mutation(player2.tree));
+                 Console.WriteLine(player3.tree==null);
+             }
+         }*/
+
+
         public void tmp()
         {
-            Board b=new Board();
+            Board b = new Board();
             //b.Empty();
 
             //b.BoardArray[1, 0] = new Piece(2);
@@ -166,12 +236,18 @@ namespace checkers
             player1.direction = 1;
             player2.color = 2;
             player2.direction = -1;
-
-            for (int i = 0; i < 100; i++)
+            player1.tree.print_tree(player1.tree);
+            Console.WriteLine("___________________________________________________________");
+            player2.tree.print_tree(player2.tree);
+            Console.WriteLine("___________________________________________________________");
+            for (int i = 0; i < 1; i++)
             {
-                Player player3=new Player(f);
+                Player player3 = new Player(f);
                 player3.Plant(player1.tree.mutation(player2.tree));
-                Console.WriteLine(player3.tree==null);
+                // Console.WriteLine(player3.tree == null);
+                player3.tree.print_tree(player3.tree);
+                Console.WriteLine("___________________________________________________________");
+
             }
         }
 

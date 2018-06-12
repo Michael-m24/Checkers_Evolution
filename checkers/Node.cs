@@ -71,11 +71,12 @@ namespace checkers
             
              lock (syncLock)
             {  //synchronize
-                if (min < max)
+
+                if(min>max)
                 {
-                    int tmp = max;
-                    max = min;
-                    min = tmp;
+                    int tmp = min;
+                    min = max;
+                    max = tmp;
                 }
             return random.Next(min, max);
             }
@@ -123,7 +124,6 @@ namespace checkers
 
             Node thisRunner = this;
             Node thisRunnerF = this;
-
             int thisRunnerR = 0;
 
             int dep = GetRandom(1, SIZE-1);//Until which depth to go
@@ -162,21 +162,73 @@ namespace checkers
                 else
                     runner = runner.childNodes[GetRandom(0, runner.childNodes.Count)];
 
+            return Create_mutation_tree(runner, runnerF, thisRunner, thisRunnerF, runnerR, thisRunnerR);
+
+
+        }
+        
+      public Node Create_mutation_tree(Node runner, Node runnerF, Node thisRunner, Node thisRunnerF, int runnerR, int thisRunnerR)
+        {
+
 
             //randomly chose who is added to who:
-            if(GetRandom(0, 100)%2 == 0)
+            if (GetRandom(0, 100) % 2 == 0)
             {
-                runnerF.childNodes[runnerR] = thisRunner;
-                return runner;
+
+                return copy_tree(runnerF, new Math_op()).childNodes[runnerR] = thisRunner;/////////////////////////////////////
+                
             }
-               
+
             else
             {
-                thisRunnerF.childNodes[thisRunnerR] = runner;
-                return thisRunner;
+                return copy_tree(thisRunnerF,new Math_op()).childNodes[thisRunnerR] = runner;
+               
             }
         }
+        public Node copy_tree(Node Old, Node New)
+        {
 
+            if (Old.GetType() == typeof(Const))
+                New=(new Const((Const)Old));
+ 
+            else if (Old.GetType() == typeof(Eval_func))
+                New=(new  Eval_func((Eval_func)Old));
+
+            else if (Old.GetType() == typeof(If))
+                New=((new If((If)Old)));
+
+            else if (Old.GetType() == typeof(Math_op))
+                New=(new Math_op((Math_op)Old));
+
+            else if(Old.GetType()==typeof(cond_node))
+                New=(new cond_node((cond_node)Old));
+
+            int amout_of_childes = Old.childNodes != null ? Old.childNodes.Count : 0;
+           
+            for(int j=0; j< amout_of_childes; j++)
+                    New.childNodes.Add(copy_tree(Old.childNodes[j], new Math_op()));
+                
+            return New;
+        }
 
     }
+    
 }
+
+/*
+   if (cur.GetType() == typeof(Const))
+            {
+                Const A= new Const();
+                A.value = cur.value;
+                A.sign = cur.sign;
+                return A;
+            }
+                
+            if (cur.GetType() == typeof(Eval_func))
+            {
+                Eval_func A = new Eval_func();
+                A.value = cur.value;
+                A.sign = cur.sign;
+                return A;
+            }
+ */

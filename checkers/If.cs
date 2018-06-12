@@ -8,12 +8,19 @@ namespace checkers
 {
     class If : Intern
     {
-         
+       
         public If()
         {
            
             this.childNodes = new List<Node>();
             this.sign = "IF";
+        }
+
+        public If(If old)
+        {
+
+            this.childNodes = new List<Node>();
+            this.sign = old.sign;
         }
         public override void eval()
         {
