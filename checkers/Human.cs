@@ -35,7 +35,7 @@ namespace checkers
                  t1= int.Parse(to[0]);
                  t2 = int.Parse(to[1]);
                 form.clearTextBox();
-                while (f1<0||f1>7&& f2 < 0 || f2 > 7 && t1 < 0 || t1 > 7 && t2 < 0 || t2 > 7)
+                while (f1==null||f2==null||t1==null||t2==null||f1<0||f1>7&& f2 < 0 || f2 > 7 && t1 < 0 || t1 > 7 && t2 < 0 || t2 > 7)
                 {
                     form.printMessageGui("Please enter a valid move!");
                     if (form.getMoveIsClicked() == true)
