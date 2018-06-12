@@ -82,46 +82,7 @@ namespace checkers
             return arr;
         }
 
-        /*public Player[] NextGen(Player[] arr)
-        {
-            //TODO: test
-
-            Player[] ans = new Player[contenders.Length];
-            int all = contenders.Length;
-            int top = (int)Math.Ceiling(contenders.Length * 0.1);
-            int good = (int)Math.Ceiling(contenders.Length * 0.2)+top;
-            int rest = all-good;
-
-            Console.WriteLine("top "+top+" good "+good+" rest "+rest);
-
-            //ans = contenders;
-            
-            for (int i = good; i < all; i++)
-            {
-                int a = rnd.Next(all);
-                int b = rnd.Next(good);
-                ans[i].Plant(contenders[a].tree.mutation(contenders[b].tree));
-                
-            }
-            
-            for (int i = top; i < good; i++)
-            {
-                int a = rnd.Next(top);
-                int b = rnd.Next(good);
-                ans[i] .Plant( contenders[a].tree.mutation(contenders[b].tree));
-            }
-             
-            for (int i = 0; i < top; i++)
-            {
-                int a = rnd.Next(0, top);
-                ans[i].Plant(contenders[a].tree.mutation(contenders[a].tree));
-            }
-     
-            return ans;
-        }*/
-
-
-
+   
         public Player[] NextGenV1(Player[] arr)
         {
             //TODO: test

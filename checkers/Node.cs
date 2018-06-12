@@ -91,7 +91,6 @@ namespace checkers
         }
         public void bulid_tree(Node cur)
         {
-
             if (cur.GetType() == typeof(Leaf) || cur.GetType() == typeof(Const) || cur.GetType() == typeof(Eval_func))
                 return;
 
@@ -102,7 +101,6 @@ namespace checkers
                 foreach (Node i in cur.childNodes)
                 {
                     SIZE2++;
-                    
 
                     i.build_sons();
                     if (SIZE2 == ((cur.childNodes).Count)-1)
@@ -166,24 +164,28 @@ namespace checkers
 
 
         }
-        
+
       public Node Create_mutation_tree(Node runner, Node runnerF, Node thisRunner, Node thisRunnerF, int runnerR, int thisRunnerR)
         {
-
+            Node tree1=copy_tree(runnerF, new Math_op());
+            Node tree2 = copy_tree(thisRunnerF, new Math_op());
 
             //randomly chose who is added to who:
             if (GetRandom(0, 100) % 2 == 0)
             {
-
-                return copy_tree(runnerF, new Math_op()).childNodes[runnerR] = thisRunner;/////////////////////////////////////
-                
+                Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$");
+                tree1.childNodes[runnerR] = copy_tree(thisRunner, new Math_op());
+                return tree1;
             }
+
 
             else
             {
-                return copy_tree(thisRunnerF,new Math_op()).childNodes[thisRunnerR] = runner;
-               
+                Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$");
+                tree2.childNodes[thisRunnerR] = copy_tree(runner, new Math_op());
+                return tree2;
             }
+         
         }
         public Node copy_tree(Node Old, Node New)
         {
