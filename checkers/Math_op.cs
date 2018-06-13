@@ -18,6 +18,7 @@ namespace checkers
             this.sign = math_ops[(GetRandom(0, 100) % math_ops.Count())];//Random operator from the operators list- math_ops
             this.value = 0;//No value yetroot.childNodes = new List<Node>();
             this.childNodes = new List<Node>();
+            this.num_of_nodes_under = 3;
             
         }
         public Math_op(Math_op old)
@@ -25,10 +26,12 @@ namespace checkers
             this.sign = old.sign;
             this.value = old.value;
             this.childNodes = new List<Node>();
+            this.num_of_nodes_under = old.num_of_nodes_under;
 
         }
         public override void eval()
         {
+            this.num_of_nodes_under = 2;
             switch (this.sign)
             {
                 //+,-,*,/ acts the same and ^,sqrt acts the same
@@ -74,7 +77,7 @@ namespace checkers
             const int OPERATOR_PROB = 33;
             const int EVAL_FUNC_PROB = 33;
             const int IF_PROB = 33;
-
+            this.num_of_nodes_under = 2;
             for (int i = 0; i < 2; i++)// +,-,*,/ are binary operators- always have 2 sons: 2+5, 20/(5*3)...
             {
                 int choice = (GetRandom(0, 100));//33.333% to be an operation/eval_func/const number

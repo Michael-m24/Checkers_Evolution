@@ -13,6 +13,7 @@ namespace checkers
             
             this.value = GetRandom(0, 100);
             this.sign = (this.value).ToString();
+            this.num_of_nodes_under = 0;
         }
 
         public Const(Const old)
@@ -20,6 +21,7 @@ namespace checkers
 
             this.value = old.value;
             this.sign =old.sign;
+            this.num_of_nodes_under = old.num_of_nodes_under;
         }
 
         public override void eval()

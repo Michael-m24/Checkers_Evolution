@@ -15,7 +15,7 @@ namespace checkers
         }
         public override void build_sons()
         {
-
+            this.num_of_nodes_under = 0;
         }
 
       
