@@ -49,7 +49,7 @@ namespace checkers
 
         public Player PvP(Player p1, Player p2,bool human)
         {
-            //Console.WriteLine("game start!");
+            Console.WriteLine("game start!");
             b = new Board();
             b.PrintBoard2(f);
             player1 = p1;
@@ -81,7 +81,7 @@ namespace checkers
                     f.printMessageGui("player " + (Math.Abs(turn - 1) + 1) + " is the winner! ");
                     b.PrintBoard2(f);
                     //Console.WriteLine("Total moves: " + logInd);
-                    //Console.WriteLine("Player " + Math.Abs(turn - 1)+" is the winner!");
+                    Console.WriteLine("Player " + Math.Abs(turn - 1)+" is the winner!");
                     return players[Math.Abs(turn - 1)]; //return the player who hasent lost
                 }
                 /*
@@ -95,7 +95,7 @@ namespace checkers
                 turn = Math.Abs(turn - 1);
             }
             b.PrintBoard2(f);
-            //Console.WriteLine("tie");
+            Console.WriteLine("tie");
             return null; //in case of a game beyond max moves, its a tie.
         }
 

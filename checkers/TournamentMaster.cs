@@ -44,6 +44,7 @@ namespace checkers
                 contenders = RoundV2(i);
             }
             f.printMessageGui("The tournament is over!");
+            contenders = OrderByRound(contenders);
             return contenders[0];
         }
 
@@ -105,6 +106,7 @@ namespace checkers
 
         public Player[] OrderByRound(Player[] group)
         {
+            Console.WriteLine("orderround start");
             for (int i = 0; i < group.Length; i++)
             {
                 group[i].wins = 0;
@@ -133,6 +135,7 @@ namespace checkers
             {
                 group[i].wins = 0;
             }
+            Console.WriteLine("orderround finish");
             return ans;
         }
    
@@ -181,6 +184,7 @@ namespace checkers
 
         public Player[] NextGenV2(Player[] arr,int round)
         {
+            Console.WriteLine("gen start");
             int mutationChance = 40;
             int crossChance = 10;
             int size = contenders.Length;
@@ -189,7 +193,7 @@ namespace checkers
             for (int i = 0; i < size; i++)
             {
                 ans[i] = new Player(f);
-
+                
                 Player[] grouping = new Player[5];
                 int[] chosenForGroup = new int[size];
                 for (int j = 0; j < 5; j++)
@@ -208,74 +212,36 @@ namespace checkers
                         j--;
                     }
                 }
+
                 grouping = OrderByRound(grouping);
 
                 Console.WriteLine("round "+round+" contender "+i+" chosen.");
 
                 int a = rnd.Next(100);
-
+                Console.WriteLine("randomized " + a);
                 if (a < crossChance)
+                {
                     ans[i].Plant(grouping[0].tree.mutation(grouping[1].tree)); //cross
+                }
                 else if (a < crossChance + mutationChance)
+                {
                     ans[i].Plant(grouping[0].tree.mutation(grouping[0].tree)); //mutation
-                else ans[i].Plant(ans[0].tree.copy_tree (ans[0].tree,new Math_op())); //elitism-ish
-
+                }
+                else
+                {
+                    ans[i].Plant(ans[0].tree.copy_tree(ans[0].tree, new Math_op())); //elitism-ish
+                }
+                Console.WriteLine("finished spawning");
             }
+            Console.WriteLine("gen finish");
             return ans;
         }
 
 
-        /* public void tmp()
-         {
-             Board b=new Board();
-             //b.Empty();
 
-             //b.BoardArray[1, 0] = new Piece(2);
-             //b.BoardArray[0, 1] = new Piece(1);
-
-             Player player1 = new Player(f);
-             player1.tree.print_tree(player1.tree);
-             Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@");
-             Node New = player1.tree.copy_tree(player1.tree,new Math_op());
-             New.print_tree(New);
-
-             /*Player player2 = new Player(f);
-             player1.color = 1;
-             player1.direction = 1;
-             player2.color = 2;
-             player2.direction = -1;
-
-             for (int i = 0; i < 100; i++)
-             {
-                 Player player3=new Player(f);
-                 player3.Plant(player1.tree.mutation(player2.tree));
-                 Console.WriteLine(player3.tree==null);
-             }
-         }*/
-
-
-        public void tmp()
+        public void tmp(Player[] arr, int round)
         {
-            Board b = new Board();
-            //b.Empty();
-
-            //b.BoardArray[1, 0] = new Piece(2);
-            //b.BoardArray[0, 1] = new Piece(1);
-
-            Player player1 = new Player(f);
-            Player player2 = new Player(f);
-            player1.color = 1;
-            player1.direction = 1;
-            player2.color = 2;
-            player2.direction = -1;
-          
             
-            for (int i = 0; i < 3; i++)
-            {
-                Player player3 = new Player(f);
-                player3.Plant(player1.tree.mutation(player2.tree));
-              
-            }
         }
 
     }
