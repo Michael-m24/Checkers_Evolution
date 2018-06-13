@@ -119,11 +119,6 @@ namespace checkers
                         if (p != null && p == group[i]) group[i].wins++; //whoever wins gets a point
                         if (p != null && p == group[j]) group[j].wins++;
                         //if its a null its a tie
-                        if(group[i].wins>4||group[j].wins>4)
-                        {
-
-                        }
-
 
                     }
                 }
@@ -268,13 +263,18 @@ namespace checkers
             player1.direction = 1;
             player2.color = 2;
             player2.direction = -1;
-          
-            
-            for (int i = 0; i < 3; i++)
+            player1.tree.print_tree(player1.tree);
+            Console.WriteLine("___________________________________________________________");
+            player2.tree.print_tree(player2.tree);
+            Console.WriteLine("___________________________________________________________");
+            for (int i = 0; i < 1; i++)
             {
                 Player player3 = new Player(f);
                 player3.Plant(player1.tree.mutation(player2.tree));
-              
+                // Console.WriteLine(player3.tree == null);
+                player3.tree.print_tree(player3.tree);
+                Console.WriteLine("___________________________________________________________");
+
             }
         }
 

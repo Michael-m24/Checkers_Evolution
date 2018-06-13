@@ -18,7 +18,6 @@ namespace checkers
             this.sign = math_ops[(GetRandom(0, 100) % math_ops.Count())];//Random operator from the operators list- math_ops
             this.value = 0;//No value yetroot.childNodes = new List<Node>();
             this.childNodes = new List<Node>();
-            this.num_of_nodes_under = 3;
             
         }
         public Math_op(Math_op old)
@@ -26,12 +25,10 @@ namespace checkers
             this.sign = old.sign;
             this.value = old.value;
             this.childNodes = new List<Node>();
-            this.num_of_nodes_under = old.num_of_nodes_under;
 
         }
         public override void eval()
         {
-            this.num_of_nodes_under = 2;
             switch (this.sign)
             {
                 //+,-,*,/ acts the same and ^,sqrt acts the same
@@ -56,12 +53,12 @@ namespace checkers
                 case "sqrt":
                     if (childNodes[1].value < 0)
                     {
-                        // Console.WriteLine("Error in Math_op in func eval in the switch case- sqrt of a negative number error. Bye Bye!");
-                        //Environment.Exit(1);
+                        //Console.WriteLine("Error in Math_op in func eval in the switch case- sqrt of a negative number error. Bye Bye!");
+                        // Environment.Exit(1);
                         childNodes[1].value *= -1;
                     }
-                    //else
-                        this.value = Math.Pow(childNodes[0].value, (childNodes[1].value)*-1);
+                    
+                        this.value = Math.Pow(childNodes[0].value, (childNodes[1].value) * -1);
 
                     break;
 
@@ -78,7 +75,7 @@ namespace checkers
             const int OPERATOR_PROB = 33;
             const int EVAL_FUNC_PROB = 33;
             const int IF_PROB = 33;
-            this.num_of_nodes_under = 2;
+
             for (int i = 0; i < 2; i++)// +,-,*,/ are binary operators- always have 2 sons: 2+5, 20/(5*3)...
             {
                 int choice = (GetRandom(0, 100));//33.333% to be an operation/eval_func/const number

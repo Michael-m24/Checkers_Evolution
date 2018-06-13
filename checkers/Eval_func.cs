@@ -12,19 +12,16 @@ namespace checkers
 
         public Eval_func()
         {
-            this.sign = eval_funcs[GetRandom(0, 100) % 3];
-            this.num_of_nodes_under = 0;
-
+                this.sign = eval_funcs[GetRandom(0, 100) % 3];
+            
         }
         public Eval_func(Eval_func old)
         {
             this.sign = old.sign;
-            this.num_of_nodes_under = old.num_of_nodes_under;
 
         }
         public override void eval()//Need to call to the eval func and return it's returned value;
         {
-            this.num_of_nodes_under = 0;
             switch (this.sign) {
 
                 case "FinishLineProx":
