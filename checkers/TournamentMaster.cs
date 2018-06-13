@@ -41,7 +41,7 @@ namespace checkers
             for (int i = 0; i < iterations; i++)
             {
                 Console.WriteLine("Round "+i+" ! FIGHT!");
-                contenders = RoundV2();
+                contenders = RoundV2(i);
             }
             f.printMessageGui("The tournament is over!");
             return contenders[0];
@@ -77,10 +77,10 @@ namespace checkers
 
         }
 
-        public Player[] RoundV2()
+        public Player[] RoundV2(int round)
         {
 
-            Player[] ans = NextGenV2(contenders);
+            Player[] ans = NextGenV2(contenders,round);
             return ans;
 
         }
@@ -119,6 +119,7 @@ namespace checkers
                         if (p != null && p == group[i]) group[i].wins++; //whoever wins gets a point
                         if (p != null && p == group[j]) group[j].wins++;
                         //if its a null its a tie
+
                     }
                 }
             }
@@ -173,7 +174,7 @@ namespace checkers
             return ans;
         }
 
-        public Player[] NextGenV2(Player[] arr)
+        public Player[] NextGenV2(Player[] arr,int round)
         {
             int mutationChance = 90;
             int crossChance = 10;
@@ -185,20 +186,31 @@ namespace checkers
                 ans[i] = new Player(f);
 
                 Player[] grouping = new Player[5];
-
+                int[] chosenForGroup = new int[size];
                 for (int j = 0; j < 5; j++)
                 {
-                    grouping[j] = contenders[rnd.Next(size)];
-                    grouping[j].wins = 0;
+                    int b = rnd.Next(size);
+                    if (chosenForGroup[b] == 0)
+                    {
+                        chosenForGroup[b] = 1;
+                        grouping[j] = contenders[b];
+                    }
+                    else
+                    {
+                        Console.WriteLine(chosenForGroup[b] + " picked already! ");
+                        j--;
+                    }
                 }
                 grouping = OrderByRound(grouping);
+
+                Console.WriteLine("round "+round+" contender "+i+" chosen.");
 
                 int a = rnd.Next(100);
 
                 if (a < crossChance)
-                    ans[i].Plant(grouping[0].tree.mutation(contenders[1].tree)); //cross
+                    ans[i].Plant(grouping[0].tree.mutation(grouping[1].tree)); //cross
                 else if (a < crossChance + mutationChance)
-                    ans[i].Plant(grouping[0].tree.mutation(contenders[0].tree)); //mutation
+                    ans[i].Plant(grouping[0].tree.mutation(grouping[0].tree)); //mutation
                 else ans[i] = grouping[0]; //elitism-ish
 
             }
@@ -249,13 +261,18 @@ namespace checkers
             player1.direction = 1;
             player2.color = 2;
             player2.direction = -1;
-          
-            
-            for (int i = 0; i < 3; i++)
+            player1.tree.print_tree(player1.tree);
+            Console.WriteLine("___________________________________________________________");
+            player2.tree.print_tree(player2.tree);
+            Console.WriteLine("___________________________________________________________");
+            for (int i = 0; i < 1; i++)
             {
                 Player player3 = new Player(f);
                 player3.Plant(player1.tree.mutation(player2.tree));
-              
+                // Console.WriteLine(player3.tree == null);
+                player3.tree.print_tree(player3.tree);
+                Console.WriteLine("___________________________________________________________");
+
             }
         }
 

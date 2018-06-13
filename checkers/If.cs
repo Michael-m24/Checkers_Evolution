@@ -14,7 +14,6 @@ namespace checkers
            
             this.childNodes = new List<Node>();
             this.sign = "IF";
-            this.num_of_nodes_under = 3;
         }
 
         public If(If old)
@@ -22,11 +21,9 @@ namespace checkers
 
             this.childNodes = new List<Node>();
             this.sign = old.sign;
-            this.num_of_nodes_under = old.num_of_nodes_under;
         }
         public override void eval()
         {
-            this.num_of_nodes_under = 3;
             if (((this.childNodes)[0].value) == 1)
                 this.value = (this.childNodes)[1].value;
             else
@@ -40,7 +37,7 @@ namespace checkers
             /*const int OPERATOR_PROB = 33;
             const int EVAL_FUNC_PROB = 33;
             const int IF_PROB = 33;*/
-            this.num_of_nodes_under = 3;
+
             (this.childNodes).Add(new cond_node());
             int flag, choice;
             flag = 0;

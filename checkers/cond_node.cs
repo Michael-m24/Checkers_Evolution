@@ -15,21 +15,18 @@ namespace checkers
             this.sign = cond_ops[(GetRandom(0, 100) % cond_ops.Count())];//Random boolean operator from the operators list- cond_ops
             this.value = -1;//No value yet
             this.childNodes = new List<Node>();
-            this.num_of_nodes_under = 2;
-
+           
         }
         public cond_node(cond_node old)
         {
             this.sign = old.sign;//Random boolean operator from the operators list- cond_ops
             this.value = old.value;//No value yet
             this.childNodes = new List<Node>();
-            this.num_of_nodes_under = old.num_of_nodes_under;
 
         }
 
         public override void eval()
         {
-            this.num_of_nodes_under = 2;
             switch (this.sign)
             {
                 
@@ -70,7 +67,7 @@ namespace checkers
             /*const int OPERATOR_PROB = 33;
             const int EVAL_FUNC_PROB = 33;
             const int IF_PROB = 33;*/
-            this.num_of_nodes_under = 2;
+
             for (int i = 0; i < 2; i++)// +,-,*,/ are binary operators- always have 2 sons: 2+5, 20/(5*3)...
             {
                 
