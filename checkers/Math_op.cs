@@ -61,7 +61,7 @@ namespace checkers
                         childNodes[1].value *= -1;
                     }
                     //else
-                        this.value = Math.Pow(childNodes[0].value, (childNodes[1].value));
+                        this.value = Math.Pow(childNodes[0].value, (childNodes[1].value)*-1);
 
                     break;
 
