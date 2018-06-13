@@ -56,11 +56,12 @@ namespace checkers
                 case "sqrt":
                     if (childNodes[1].value < 0)
                     {
-                        Console.WriteLine("Error in Math_op in func eval in the switch case- sqrt of a negative number error. Bye Bye!");
-                        Environment.Exit(1);
+                        // Console.WriteLine("Error in Math_op in func eval in the switch case- sqrt of a negative number error. Bye Bye!");
+                        //Environment.Exit(1);
+                        childNodes[1].value *= -1;
                     }
-                    else
-                        this.value = Math.Pow(childNodes[0].value, (childNodes[1].value) * -1);
+                    //else
+                        this.value = Math.Pow(childNodes[0].value, (childNodes[1].value));
 
                     break;
 
