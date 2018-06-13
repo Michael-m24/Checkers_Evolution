@@ -178,14 +178,11 @@ namespace checkers
 
         public Node mutation(Node second_tree)
         {
-            Console.WriteLine("start mutation");
             Node tree1 = copy_tree(this, new Math_op());
             Node tree2 = copy_tree(second_tree, new Math_op());
             Node tree1_runner = tree1;
             Node tree2_runner = tree2;
-            Node tmp = Create_mutation_tree(tree1, tree1_runner, tree2, tree2_runner);
-            Console.WriteLine("finish mutation");
-            return tmp;
+            return Create_mutation_tree(tree1, tree1_runner,tree2, tree2_runner);
         }
 
         public Node Create_mutation_tree(Node tree1, Node tree1_runner, Node tree2, Node tree2_runner)

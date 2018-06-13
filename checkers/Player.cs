@@ -106,9 +106,9 @@ namespace checkers
                 res.Add(b.SoldierRatio(players[turn], b));
                 res.Add(b.QueenRatio(players[turn], b));
                 res.Add(b.Exposure(players[turn], b));
-                if (tree != null)
-                    BoardValue = (double)tree.etiFunc(res);
-                else return rnd.Next(-20, 20); //if ther is no tree, return random value.  //TODO: make sure this doesnt happen.
+                if (tree != null) //
+                    BoardValue = (double) tree.etiFunc(res);
+                else return rnd.Next(-20,20); //if ther is no tree, return random value.  //TODO: make sure this doesnt happen.
                 //Console.WriteLine("depth is "+depth+"val is "+BoardValue);
                 return BoardValue;
             }
