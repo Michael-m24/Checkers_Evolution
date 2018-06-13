@@ -119,6 +119,11 @@ namespace checkers
                         if (p != null && p == group[i]) group[i].wins++; //whoever wins gets a point
                         if (p != null && p == group[j]) group[j].wins++;
                         //if its a null its a tie
+                        if(group[i].wins>4||group[j].wins>4)
+                        {
+
+                        }
+
 
                     }
                 }
@@ -176,7 +181,7 @@ namespace checkers
 
         public Player[] NextGenV2(Player[] arr,int round)
         {
-            int mutationChance = 90;
+            int mutationChance = 40;
             int crossChance = 10;
             int size = contenders.Length;
             Player[] ans = new Player[size];
@@ -192,12 +197,14 @@ namespace checkers
                     int b = rnd.Next(size);
                     if (chosenForGroup[b] == 0)
                     {
+                        Console.WriteLine(b + " picked! ");
                         chosenForGroup[b] = 1;
                         grouping[j] = contenders[b];
+                        grouping[j].wins = 0;
                     }
                     else
                     {
-                        Console.WriteLine(chosenForGroup[b] + " picked already! ");
+                        Console.WriteLine(b + " picked already! ");
                         j--;
                     }
                 }
@@ -211,7 +218,7 @@ namespace checkers
                     ans[i].Plant(grouping[0].tree.mutation(grouping[1].tree)); //cross
                 else if (a < crossChance + mutationChance)
                     ans[i].Plant(grouping[0].tree.mutation(grouping[0].tree)); //mutation
-                else ans[i] = grouping[0]; //elitism-ish
+                else ans[i].Plant(ans[0].tree.copy_tree (ans[0].tree,new Math_op())); //elitism-ish
 
             }
             return ans;
