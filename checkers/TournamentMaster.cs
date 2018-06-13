@@ -268,18 +268,13 @@ namespace checkers
             player1.direction = 1;
             player2.color = 2;
             player2.direction = -1;
-            player1.tree.print_tree(player1.tree);
-            Console.WriteLine("___________________________________________________________");
-            player2.tree.print_tree(player2.tree);
-            Console.WriteLine("___________________________________________________________");
-            for (int i = 0; i < 1; i++)
+          
+            
+            for (int i = 0; i < 3; i++)
             {
                 Player player3 = new Player(f);
                 player3.Plant(player1.tree.mutation(player2.tree));
-                // Console.WriteLine(player3.tree == null);
-                player3.tree.print_tree(player3.tree);
-                Console.WriteLine("___________________________________________________________");
-
+              
             }
         }
 
