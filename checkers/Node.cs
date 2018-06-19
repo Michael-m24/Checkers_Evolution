@@ -238,9 +238,10 @@ namespace checkers
 
                 //Check the two sub trees are mach to mutation (a leaf cant have childes for an example..)
                 if (tree1_runner.GetType() != tree2_runner.GetType())
-                   if (tree1_runner.GetType() == typeof(cond_node) || tree2_runner.GetType() == typeof(cond_node))
+                    if (tree1_runner.GetType() == typeof(cond_node) || tree2_runner.GetType() == typeof(cond_node))
                         flag = false;
-                   else flag = true;
+                    else flag = true;
+                else flag = true;
             }
 
             //TO PRINY THE 2 CHOSEN SUB TREE'S

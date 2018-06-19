@@ -15,6 +15,7 @@ namespace checkers
 {
     public partial class Form1 : Form
     {
+        // version 0.13
         private BackgroundWorker backgroundWorker1;
         private BackgroundWorker backgroundWorker2;
         private bool moveIsClicked=false;

@@ -15,22 +15,21 @@ namespace checkers
         private GameMaster GM;
         Random rnd = new Random();
 
-        public TournamentMaster(int size, int itr,Form1 frm)
+        public TournamentMaster(int size, int itr, Form1 frm)
         {
-            
-            contenders=new Player[size];
+
+            contenders = new Player[size];
             for (int i = 0; i < size; i++)
             {
-                contenders[i]=new Player(frm);
+                contenders[i] = new Player(frm);
             }
             iterations = itr;
             f = frm;
-            GM=new GameMaster(frm);
+            GM = new GameMaster(frm);
         }
 
         public Player Go(int size, int itr)
         {
-
             contenders = new Player[size];
             for (int i = 0; i < size; i++)
             {
@@ -40,14 +39,36 @@ namespace checkers
 
             for (int i = 0; i < iterations; i++)
             {
-                Console.WriteLine("Round "+i+" ! FIGHT!");
+                Console.WriteLine("Round " + i + " ! FIGHT!");
                 contenders = RoundV2(i);
             }
+            contenders = OrderByRound(contenders);
             f.printMessageGui("The tournament is over!");
             return contenders[0];
         }
 
-        public Player[] RoundV1()
+        public Player Go1(int size, int itr)
+        {
+            contenders = new Player[size];
+            for (int i = 0; i < size; i++)
+            {
+                contenders[i] = new Player(f);
+            }
+            iterations = itr;
+
+            for (int i = 0; i < iterations; i++)
+            {
+                Console.WriteLine("Round " + i + " ! FIGHT!");
+                contenders = RoundV1(i);
+            }
+            contenders = OrderByRound(contenders);
+            f.printMessageGui("The tournament is over!");
+            return contenders[0];
+        }
+
+
+
+        public Player[] RoundV1(int round)
         {
             for (int i = 0; i < contenders.Length; i++)
             {
@@ -59,7 +80,7 @@ namespace checkers
                 {
                     if (i != j)//dont play against yourself lol
                     {
-                        Player p = GM.PvP(contenders[i], contenders[j],false);
+                        Player p = GM.PvP(contenders[i], contenders[j], false);
                         if (p != null && p == contenders[i]) contenders[i].wins++; //whoevr wins gets a point
                         if (p != null && p == contenders[j]) contenders[j].wins++;
                         //if its a null its a tie
@@ -80,7 +101,7 @@ namespace checkers
         public Player[] RoundV2(int round)
         {
 
-            Player[] ans = NextGenV2(contenders,round);
+            Player[] ans = NextGenV2(contenders, round);
             return ans;
 
         }
@@ -97,7 +118,7 @@ namespace checkers
                 delegate(Player x, Player y) { return y.wins.CompareTo(x.wins); });
             foreach (Player var in arr)
             {
-                Console.Write(var.wins+"  ");
+                Console.Write(var.wins + "  ");
             }
             Console.WriteLine("win array after \n");
             return arr;
@@ -115,15 +136,12 @@ namespace checkers
                 {
                     if (i != j)//dont play against yourself lol
                     {
+                        group[i].id = 0;
+                        group[i].id = 1;
                         Player p = GM.PvP(group[i], group[j], false);
-                        if (p != null && p == group[i]) group[i].wins++; //whoever wins gets a point
-                        if (p != null && p == group[j]) group[j].wins++;
+                        if (p != null && p.id == group[i].id) group[i].wins++; //whoever wins gets a point
+                        else if (p != null && p.id == group[j].id) group[j].wins++;
                         //if its a null its a tie
-                        if(group[i].wins>4||group[j].wins>4)
-                        {
-
-                        }
-
 
                     }
                 }
@@ -135,14 +153,14 @@ namespace checkers
             }
             return ans;
         }
-   
+
         public Player[] NextGenV1(Player[] arr)
         {
             //TODO: test
 
             Player[] ans = new Player[contenders.Length];
 
-            
+
             int all = contenders.Length;
             int top = (int)Math.Ceiling(contenders.Length * 0.1);
             int good = (int)Math.Ceiling(contenders.Length * 0.2) + top;
@@ -179,10 +197,10 @@ namespace checkers
             return ans;
         }
 
-        public Player[] NextGenV2(Player[] arr,int round)
+        public Player[] NextGenV2(Player[] arr, int round)
         {
-            int mutationChance = 40;
-            int crossChance = 10;
+            int mutationChance = 20;
+            int crossChance = 70;
             int size = contenders.Length;
             Player[] ans = new Player[size];
 
@@ -197,10 +215,8 @@ namespace checkers
                     int b = rnd.Next(size);
                     if (chosenForGroup[b] == 0)
                     {
-                        Console.WriteLine(b + " picked! ");
                         chosenForGroup[b] = 1;
                         grouping[j] = contenders[b];
-                        grouping[j].wins = 0;
                     }
                     else
                     {
@@ -210,7 +226,7 @@ namespace checkers
                 }
                 grouping = OrderByRound(grouping);
 
-                Console.WriteLine("round "+round+" contender "+i+" chosen.");
+                Console.WriteLine("round " + round + " contender " + i + " chosen.");
 
                 int a = rnd.Next(100);
 
@@ -218,7 +234,7 @@ namespace checkers
                     ans[i].Plant(grouping[0].tree.mutation(grouping[1].tree)); //cross
                 else if (a < crossChance + mutationChance)
                     ans[i].Plant(grouping[0].tree.mutation(grouping[0].tree)); //mutation
-                else ans[i].Plant(ans[0].tree.copy_tree (ans[0].tree,new Math_op())); //elitism-ish
+                else ans[i] = grouping[0]; //elitism-ish
 
             }
             return ans;
@@ -268,13 +284,18 @@ namespace checkers
             player1.direction = 1;
             player2.color = 2;
             player2.direction = -1;
-          
-            
-            for (int i = 0; i < 3; i++)
+            player1.tree.print_tree(player1.tree);
+            Console.WriteLine("___________________________________________________________");
+            player2.tree.print_tree(player2.tree);
+            Console.WriteLine("___________________________________________________________");
+            for (int i = 0; i < 1; i++)
             {
                 Player player3 = new Player(f);
                 player3.Plant(player1.tree.mutation(player2.tree));
-              
+                // Console.WriteLine(player3.tree == null);
+                player3.tree.print_tree(player3.tree);
+                Console.WriteLine("___________________________________________________________");
+
             }
         }
 

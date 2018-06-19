@@ -11,6 +11,7 @@ namespace checkers
 {
     class Player
     {
+        public int id;
         public Node tree;
         public int color;
         public int direction; //1 for player 1 who moves 0 to 7, -1 for player 2 who moves 7 to 0.

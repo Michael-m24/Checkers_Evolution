@@ -49,7 +49,7 @@ namespace checkers
 
         public Player PvP(Player p1, Player p2,bool human)
         {
-            //Console.WriteLine("game start!");
+            Console.WriteLine("game start!");
             b = new Board();
             b.PrintBoard2(f);
             player1 = p1;
@@ -69,7 +69,9 @@ namespace checkers
                 AMove m = players[turn].ChooseMove(MA, b, f, players,3);
                 while (MA != null && m != null && !IsLegalMove(b, m, players[turn]))
                 { //will only shoot in case of human player making an illegal move
-                    f.printMessageGui("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1] +
+                    if (m.From[0] == -1 && m.From[1] == -1 && m.To[0]==-1 &&  m.To[1]==-1)
+                        f.printMessageGui("Please fill all fields with valid input");
+                    else f.printMessageGui("the move " + m.From[0] + "," + m.From[1] + " to " + m.To[0] + "," + m.To[1] +
                                       " isn't legal.");
                     Thread.Sleep(2000); //give the human player time to read the messege
                     if(human) //there is a human player in the game
@@ -81,7 +83,7 @@ namespace checkers
                     f.printMessageGui("player " + (Math.Abs(turn - 1) + 1) + " is the winner! ");
                     b.PrintBoard2(f);
                     //Console.WriteLine("Total moves: " + logInd);
-                    //Console.WriteLine("Player " + Math.Abs(turn - 1)+" is the winner!");
+                    Console.WriteLine("Player " + Math.Abs(turn - 1)+" is the winner!");
                     return players[Math.Abs(turn - 1)]; //return the player who hasent lost
                 }
                 /*
@@ -95,7 +97,7 @@ namespace checkers
                 turn = Math.Abs(turn - 1);
             }
             b.PrintBoard2(f);
-            //Console.WriteLine("tie");
+            Console.WriteLine("tie");
             return null; //in case of a game beyond max moves, its a tie.
         }
 
